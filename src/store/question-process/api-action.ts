@@ -30,6 +30,7 @@ export const fetchQuestByIdAction = createAsyncThunk<void, QuestId, {
       const { data } = await api.get<Quest>(`${APIRoute.Quests}/${id}`);
       dispatch(loadQuestById(data));
     } catch (e) {
+
       throw e;
     }
   },

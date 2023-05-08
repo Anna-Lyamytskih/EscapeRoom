@@ -8,6 +8,6 @@ const GenreFilterList = () => {
       {listGenre.map((genre) => (<GenreFilter id={genre.value} value={genre.title} key={genre.value} />))}
     </ul>
   );
-}
+};
 
 export default GenreFilterList;

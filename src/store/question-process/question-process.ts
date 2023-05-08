@@ -48,12 +48,10 @@ export const questProcessSlice = createSlice({
 export const useGetFilteredQuests = () => {
   const quests = useAppSelector((state) => state.QUESTS.quests);
   const filter = useAppSelector((state) => state.QUESTS.filter);
-  console.log('useGetFilteredQuests filter', filter);
-
   const filteredByGenre = getSortingQuests(quests, filter.genre);
   const filteredByLevel = getSortingQuestsLevel(filteredByGenre, filter.level);
 
-  return filteredByLevel
-}
+  return filteredByLevel;
+};
 
 export const { loadQuests, setIsQuestsDataLoading, changeSortGenre, changeSortLevel, loadQuestById, questIdChange } = questProcessSlice.actions;

@@ -1,4 +1,4 @@
-import { SortingTypesGenre, SortingTypesLevel } from "./types/quests";
+import { SortingTypesGenre, SortingTypesLevel } from './types/quests';
 
 export enum AuthorizationStatus {
   Auth = 'AUTH',
@@ -7,7 +7,9 @@ export enum AuthorizationStatus {
 }
 
 export enum NameSpace {
-  Quests = 'QUESTS'
+  Quests = 'QUESTS',
+  User = 'USER',
+  Booking = 'BOOKING'
 }
 
 export const listGenre = [
@@ -55,3 +57,32 @@ export const listLevel = [
     value: SortingTypesLevel.Hard,
   },
 ];
+
+export enum SortingTypesNavigation {
+  Quests = '/',
+  Contacts = '/contacts',
+  MyQuests = '/my-quests',
+}
+
+
+export const listNavigation = [
+  {
+    title: 'Квесты',
+    value: SortingTypesNavigation.Quests,
+  },
+  {
+    title: 'Контакты',
+    value: SortingTypesNavigation.Contacts,
+  },
+  {
+    title: 'Мои бронирования',
+    value: SortingTypesNavigation.MyQuests,
+  },
+];
+
+export enum FetchStatus {
+  Idle = 'Idle',
+  Pending = 'Pending',
+  Success = 'Success',
+  Failed = 'Failed',
+}

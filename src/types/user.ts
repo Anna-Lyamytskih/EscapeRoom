@@ -4,6 +4,6 @@ export type User = {
 }
 
 export type AuthorizationData = {
-  email: string
-  token: string
+  email: string;
+  token: string;
 }

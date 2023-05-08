@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom';
+import { Link, generatePath, useParams } from 'react-router-dom';
 import Decor from '../../components/decor/decor';
 import Footer from '../../components/footer/footer';
 import Title from '../../components/title/title';
@@ -7,6 +7,9 @@ import Path from '../../components/path/path';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
 import { fetchQuestByIdAction } from '../../store/question-process/api-action';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { AuthorizationStatus } from '../../constants';
+import { AppRoute } from '../../router/constants';
 
 const QuestPage = () => {
   const { id } = useParams();
@@ -15,10 +18,18 @@ const QuestPage = () => {
   const dispatch = useAppDispatch();
 
   const quest = useAppSelector((state) => state.QUESTS.quest);
-
+  console.log(quest)
   useEffect(() => {
     dispatch(fetchQuestByIdAction({ id: questId }));
-  }, [questId]);
+  }, [dispatch, questId]);
+
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+
+  const linkToLogin = generatePath(AppRoute.Login);
+
+  const linkToBooking = generatePath(AppRoute.Booking, {
+    id: `${quest?.id}`,
+  });
 
   return (
     <>
@@ -46,7 +57,9 @@ const QuestPage = () => {
                 </li>
               </ul>
               <p className="quest-page__description">{quest?.description}</p>
-              <Link className="btn btn--accent btn--cta quest-page__btn" to="booking.html">Забронировать</Link>
+              {authorizationStatus === AuthorizationStatus.Auth ?
+                <Link className="btn btn--accent btn--cta quest-page__btn" to={linkToBooking}>Забронировать</Link> :
+                <Link className="btn btn--accent btn--cta quest-page__btn" to={linkToLogin}>Забронировать</Link>}
             </div>
           </div>
         </main>
@@ -54,6 +67,6 @@ const QuestPage = () => {
       </div>
     </>
   );
-}
+};
 
 export default QuestPage;

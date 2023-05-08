@@ -1,89 +1,118 @@
-const BookingForm = () => (
-  <form className="booking-form" action="https://echo.htmlacademy.ru/" method="post">
-    <fieldset className="booking-form__section">
-      <legend className="visually-hidden">Выбор даты и времени</legend>
-      <fieldset className="booking-form__date-section">
-        <legend className="booking-form__date-title">Сегодня</legend>
-        <div className="booking-form__date-inner-wrapper">
-          <label className="custom-radio booking-form__date">
-            <input type="radio" id="today9h45m" name="date" required value="today9h45m" /><span className="custom-radio__label">9:45</span>
-          </label>
-          <label className="custom-radio booking-form__date">
-            <input type="radio" id="today15h00m" name="date" checked required value="today15h00m" /><span className="custom-radio__label">15:00</span>
-          </label>
-          <label className="custom-radio booking-form__date">
-            <input type="radio" id="today17h30m" name="date" required value="today17h30m" /><span className="custom-radio__label">17:30</span>
-          </label>
-          <label className="custom-radio booking-form__date">
-            <input type="radio" id="today19h30m" name="date" required value="today19h30m" disabled /><span className="custom-radio__label">19:30</span>
-          </label>
-          <label className="custom-radio booking-form__date">
-            <input type="radio" id="today21h30m" name="date" required value="today21h30m" /><span className="custom-radio__label">21:30</span>
-          </label>
-        </div>
+import { SubmitHandler, useForm } from 'react-hook-form';
+import BookingFormDate from '../booking-form-date/booking-form-date';
+import { Place } from '../../store/bookinng-process/types';
+import { fetchReservationAction } from '../../store/bookinng-process/api-actions';
+
+export type BookingForm = {
+  name: string;
+  tel: number;
+  person: number;
+  children: boolean;
+}
+export type BookingFormProps = {
+  place: Place | null;
+}
+
+const BookingForm = ({ place }: BookingFormProps) => {
+
+  const { register, handleSubmit, reset, formState: { errors, isValid } } = useForm<BookingForm>({
+    defaultValues: { children: true },
+    mode: 'onChange'
+  });
+
+  const onSubmit: SubmitHandler<BookingForm> = (data) => {
+    //TODO диспатчить инфу о пользователе для получения ее в забронированных квестах
+    fetchReservationAction(data);
+    reset();
+  };
+  console.log(place)
+  return (
+    <form className="booking-form" action="https://echo.htmlacademy.ru/" method="post" onSubmit={handleSubmit(onSubmit)}>
+      <fieldset className="booking-form__section">
+        <legend className="visually-hidden">Выбор даты и времени</legend>
+        <fieldset className="booking-form__date-section">
+          <legend className="booking-form__date-title">Сегодня</legend>
+          <BookingFormDate placeTime={place?.slots.today} />
+        </fieldset>
+        <fieldset className="booking-form__date-section">
+          <legend className="booking-form__date-title">Завтра</legend>
+          <BookingFormDate placeTime={place?.slots.tomorrow} />
+        </fieldset>
       </fieldset>
-      <fieldset className="booking-form__date-section">
-        <legend className="booking-form__date-title">Завтра</legend>
-        <div className="booking-form__date-inner-wrapper">
-          <label className="custom-radio booking-form__date">
-            <input type="radio" id="tomorrow11h00m" name="date" required value="tomorrow11h00m" /><span className="custom-radio__label">11:00</span>
-          </label>
-          <label className="custom-radio booking-form__date">
-            <input type="radio" id="tomorrow15h00m" name="date" required value="tomorrow15h00m" disabled /><span className="custom-radio__label">15:00</span>
-          </label>
-          <label className="custom-radio booking-form__date">
-            <input type="radio" id="tomorrow17h30m" name="date" required value="tomorrow17h30m" disabled /><span className="custom-radio__label">17:30</span>
-          </label>
-          <label className="custom-radio booking-form__date">
-            <input type="radio" id="tomorrow19h45m" name="date" required value="tomorrow19h45m" /><span className="custom-radio__label">19:45</span>
-          </label>
-          <label className="custom-radio booking-form__date">
-            <input type="radio" id="tomorrow21h30m" name="date" required value="tomorrow21h30m" /><span className="custom-radio__label">21:30</span>
-          </label>
+      <fieldset className="booking-form__section">
+        <legend className="visually-hidden">Контактная информация</legend>
+        <div className="custom-input booking-form__input">
+          <label className="custom-input__label" htmlFor="name">Ваше имя</label>
+          <input type="text" id="name" placeholder="Имя"
+            {...register('name', {
+              required: 'Поле обязательно к заполнению',
+              minLength: {
+                value: 1,
+                message: 'Имя должно содержать не менее 1 символа'
+              },
+              maxLength: {
+                value: 15,
+                message: 'Имя должно содержать не более 15 символов'
+              }
+            })} />
+          <div> {errors?.name && <p>{errors?.name?.message}</p>}</div>
         </div>
+        <div className="custom-input booking-form__input">
+          <label className="custom-input__label" htmlFor="tel">Контактный телефон</label>
+          <input type="tel" id="tel" placeholder="Телефон"
+            {...register('tel', {
+              required: 'Поле обязательно к заполнению',
+              pattern: {
+                value: /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/,
+                message: 'Пожалуйста введите допустимый формат номера телефона (к примеру +7(000)000-00-00 (Ру-формат))'
+              }
+            })} />
+          <div> {errors?.tel && <p>{errors?.tel.message}</p>}</div>
+        </div>
+        <div className="custom-input booking-form__input">
+          <label className="custom-input__label" htmlFor="person">Количество участников</label>
+          <input type="number" id="person" placeholder="Количество участников" required
+            {...register('person', {
+              required: 'Поле обязательно к заполнению',
+              min: {
+                value: 1,
+                message: 'Пожалуйста укажите большее количество участников, в данном квесте могут учатствовать от {} человек'
+              },
+              max: {
+                value: 10,
+                message: 'Пожалуйста укажите меньшее количество участников, в данном квесте могут учатствовать до {} человек'
+              }
+            })} />
+          <div> {errors?.person && <p>{errors?.person.message}</p>}</div>
+        </div>
+        <label className="custom-checkbox booking-form__checkbox booking-form__checkbox--children">
+          <input type="checkbox" id="children"
+            {...register('children')} />
+          <span className="custom-checkbox__icon">
+            <svg width="20" height="17" aria-hidden="true">
+              <use xlinkHref="#icon-tick"></use>
+            </svg>
+          </span>
+          <span className="custom-checkbox__label">Со&nbsp;мной будут дети</span>
+        </label>
       </fieldset>
-    </fieldset>
-    <fieldset className="booking-form__section">
-      <legend className="visually-hidden">Контактная информация</legend>
-      <div className="custom-input booking-form__input">
-        <label className="custom-input__label" htmlFor="name">Ваше имя</label>
-        <input type="text" id="name" name="name" placeholder="Имя" required pattern="[А-Яа-яЁёA-Za-z'- ]{1,}" />
-      </div>
-      <div className="custom-input booking-form__input">
-        <label className="custom-input__label" htmlFor="tel">Контактный телефон</label>
-        <input type="tel" id="tel" name="tel" placeholder="Телефон" required pattern="[0-9]{10,}" />
-      </div>
-      <div className="custom-input booking-form__input">
-        <label className="custom-input__label" htmlFor="person">Количество участников</label>
-        <input type="number" id="person" name="person" placeholder="Количество участников" required />
-      </div>
-      <label className="custom-checkbox booking-form__checkbox booking-form__checkbox--children">
-        <input type="checkbox" id="children" name="children" checked />
+      <button className="btn btn--accent btn--cta booking-form__submit" type="submit" disabled={!isValid}>Забронировать</button>
+      <label className="custom-checkbox booking-form__checkbox booking-form__checkbox--agreement">
+        <input type="checkbox" id="id-order-agreement" name="user-agreement" required />
         <span className="custom-checkbox__icon">
           <svg width="20" height="17" aria-hidden="true">
             <use xlinkHref="#icon-tick"></use>
           </svg>
         </span>
-        <span className="custom-checkbox__label">Со&nbsp;мной будут дети</span>
+        <span className="custom-checkbox__label">
+          Я&nbsp;согласен с
+          <a className="link link--active-silver link--underlined" href="#">
+            правилами обработки персональных данных
+          </a>
+          &nbsp;и пользовательским соглашением
+        </span>
       </label>
-    </fieldset>
-    <button className="btn btn--accent btn--cta booking-form__submit" type="submit">Забронировать</button>
-    <label className="custom-checkbox booking-form__checkbox booking-form__checkbox--agreement">
-      <input type="checkbox" id="id-order-agreement" name="user-agreement" required />
-      <span className="custom-checkbox__icon">
-        <svg width="20" height="17" aria-hidden="true">
-          <use xlinkHref="#icon-tick"></use>
-        </svg>
-      </span>
-      <span className="custom-checkbox__label">
-        Я&nbsp;согласен с
-        <a className="link link--active-silver link--underlined" href="#">
-          правилами обработки персональных данных
-        </a>
-        &nbsp;и пользовательским соглашением
-      </span>
-    </label>
-  </form >
-);
-
+    </form >
+  );
+};
 export default BookingForm;

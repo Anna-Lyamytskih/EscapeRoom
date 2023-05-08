@@ -29,5 +29,5 @@ export type BookingQuest = {
   slots: {
     today: Day;
     tomorrow: Day;
-  }
+  };
 }

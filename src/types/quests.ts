@@ -3,7 +3,7 @@ export enum SortingTypesGenre {
   Horror = 'horror',
   Mystic = 'mystic',
   Detective = 'detective',
-  SciFi = 'scifi',
+  SciFi = 'sci-fi',
   All = 'all',
 }
 
@@ -55,3 +55,4 @@ export type Location = {
 export type QuestId = {
   id: string;
 }
+
