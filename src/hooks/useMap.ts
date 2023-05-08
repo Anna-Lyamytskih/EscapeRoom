@@ -1,35 +1,59 @@
-// import { useEffect, useRef, useState } from "react";
-// import leaflet from 'leaflet'
+import leaflet, { Map, Marker, FeatureGroup } from 'leaflet';
+import { useEffect, useState, useRef, MutableRefObject } from 'react';
+import { Place } from '../store/bookinng-process/types';
 
-// function useMap(mapRef, city) {
-//   const [map, setMap] = useState(null);
-//   const isRenderedRef = useRef(false);
+export const useMapMarkers = ({ map, mapMarkers }: {
+  map: Map | null;
+  mapMarkers: FeatureGroup | null;
+}) => {
+  const [markers, setMarkers] = useState<Marker[]>([]);
 
-//   useEffect(() => {
-//     if (mapRef.current !== null && !isRenderedRef.current) {
-//       const instance = leaflet.map(mapRef.current, {
-//         center: {
-//           lat: city.lat,
-//           lng: city.lng,
-//         },
-//         zoom: city.zoom,
-//       });
+  const addMarker = (newMarker: Marker) => {
+    setMarkers((prevMarkers) => [...prevMarkers, newMarker]);
+  };
 
-//       leaflet
-//         .tileLayer(
-//           'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
-//           {
-//             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-//           },
-//         )
-//         .addTo(instance);
+  const clearMarkers = () => {
+    if (map) {
+      mapMarkers?.clearLayers();
+      setMarkers([]);
+    }
+  };
 
-//       setMap(instance);
-//       isRenderedRef.current = true;
-//     }
-//   }, [mapRef, city]);
+  return { markers, addMarker, clearMarkers };
+};
 
-//   return map;
-// }
+const useMap = (
+  mapRef: MutableRefObject<HTMLElement | null>,
+  place: Place,
+  zoom?: number,
+): { map: Map | null; mapMarkers: FeatureGroup | null } => {
+  const [map, setMap] = useState<Map | null>(null);
+  const [mapMarkers, setMapMarkers] = useState<FeatureGroup | null>(null);
 
-// export default useMap;
+  const isRenderedRef = useRef<boolean>(false);
+
+  useEffect(() => {
+    if (mapRef.current !== null && !isRenderedRef.current) {
+      const instance = leaflet.map(mapRef.current, {
+        center: {
+          lat: place.location.coords[0],
+          lng: place.location.coords[1],
+        },
+        zoom
+      });
+
+      leaflet
+        .tileLayer('TITLE')
+        .addTo(instance);
+
+      setMap(instance);
+
+      setMapMarkers(new FeatureGroup().addTo(instance));
+      isRenderedRef.current = true;
+    }
+  }, [mapRef, map, place, zoom]);
+
+  return { map, mapMarkers };
+};
+
+export default useMap;

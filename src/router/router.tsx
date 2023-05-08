@@ -7,7 +7,6 @@ import NotFound from '../pages/not-found/not-found';
 import Contacts from '../pages/contacts/contacts';
 import Booking from '../pages/booking/booking';
 import PrivateRoute from './private-route/private-route';
-import { AuthorizationStatus } from '../constants';
 import QuestPage from '../pages/quest-page/quest-page';
 import { useAppSelector } from '../hooks';
 
@@ -17,6 +16,7 @@ const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
+        //TODO BrowserHistiry нужно приляпать сюда
         <Route path='/'>
           <Route path={AppRoute.Root} element={<Main />} />
           <Route path={AppRoute.Quest} element={<QuestPage />} />

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Logo from '../logo/logo';
 import NavigationList from '../navigation-list/navigation-list';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -7,6 +7,7 @@ import { logoutAction } from '../../store/user-process/api-actions';
 import { AuthorizationStatus } from '../../constants';
 
 const Header = () => {
+  const location = useLocation();
   const dispatch = useAppDispatch();
 
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
@@ -25,11 +26,11 @@ const Header = () => {
       <div className="header__side-nav">
         {authorizationStatus === AuthorizationStatus.Auth &&
           <Link className="btn btn--accent header__side-item" to="#" onClick={handleOutClick}>Выйти</Link>}
-        {authorizationStatus === AuthorizationStatus.NoAuth &&
-          <Link className="btn header__side-item header__login-btn" to="/login">Вход</Link>}
+        {authorizationStatus === AuthorizationStatus.NoAuth && location.pathname !== '/login' &&
+          < Link className="btn header__side-item header__login-btn" to="/login">Вход</Link>}
         <Link className="link header__side-item header__phone-link" to="tel:88003335599">8 (000) 111-11-11</Link>
       </div>
-    </div>
+    </div >
   );
 };
 

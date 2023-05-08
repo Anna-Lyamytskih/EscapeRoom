@@ -3,7 +3,7 @@ import Decor from '../../components/decor/decor';
 import Footer from '../../components/footer/footer';
 import Title from '../../components/title/title';
 import Header from '../../components/header/header';
-import Map from '../../components/map/map';
+//import Map from '../../components/map/map';
 import Path from '../../components/path/path';
 
 const Contacts = () => (
@@ -26,7 +26,7 @@ const Contacts = () => (
             </div>
             <div className="contacts">
               <ContactItem />
-              <Map />
+              {/* <Map /> */}
             </div>
           </div>
         </main>
@@ -36,5 +36,5 @@ const Contacts = () => (
   </>
 );
 
-
+//TODO нужно разобраться с картой, д.б. статична, отдельную создать для этого компонента?
 export default Contacts;

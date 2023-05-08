@@ -1,11 +1,9 @@
-import { ReservationQuest } from "./api-actions";
+import { Location } from '../../types/location';
+import { ReservationQuest } from './api-actions';
 
 export type Place = {
   id: string;
-  location: {
-    address: string;
-    coords: [number];
-  };
+  location: Location;
   slots: {
     today: [{
       time: string;
@@ -20,7 +18,7 @@ export type Place = {
 
 export type bookingProcess = {
   places: ReservationQuest[];
-  place: Place | null,
+  place: Place | null;
   isAvailable: boolean;
   nextBookinQuest: Place | null;
 };

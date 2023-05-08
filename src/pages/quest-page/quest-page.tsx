@@ -4,31 +4,30 @@ import Footer from '../../components/footer/footer';
 import Title from '../../components/title/title';
 import Header from '../../components/header/header';
 import Path from '../../components/path/path';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { useEffect } from 'react';
-import { fetchQuestByIdAction } from '../../store/question-process/api-action';
+import { useAppSelector } from '../../hooks';
+// import { useEffect } from 'react';
+// import { fetchQuestByIdAction } from '../../store/question-process/api-action';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { AuthorizationStatus } from '../../constants';
 import { AppRoute } from '../../router/constants';
+import { questApi } from '../../store/question-process/api-action';
 
 const QuestPage = () => {
   const { id } = useParams();
   const questId = id;
 
-  const dispatch = useAppDispatch();
+  const { data } = questApi.useGetByIdQuery(questId, { skip: !questId });
+  const quest = data;
 
-  const quest = useAppSelector((state) => state.QUESTS.quest);
-  console.log(quest)
-  useEffect(() => {
-    dispatch(fetchQuestByIdAction({ id: questId }));
-  }, [dispatch, questId]);
+  console.log('data', data);
+  console.log(quest);
 
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   const linkToLogin = generatePath(AppRoute.Login);
 
   const linkToBooking = generatePath(AppRoute.Booking, {
-    id: `${quest?.id}`,
+    id: `${questId || ''}`,
   });
 
   return (

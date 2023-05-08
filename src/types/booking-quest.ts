@@ -1,4 +1,5 @@
 import { Day, Quests } from './quests';
+import { Location } from '../types/location';
 
 export type QuestsBookingDescriptions = {
   date: Date;

@@ -61,11 +61,11 @@ export const listLevel = [
 export enum SortingTypesNavigation {
   Quests = '/',
   Contacts = '/contacts',
-  MyQuests = '/my-quests',
+  MyQuests = '/reservation',
 }
 
 
-export const listNavigation = [
+export const listAuthNavigation = [
   {
     title: 'Квесты',
     value: SortingTypesNavigation.Quests,
@@ -77,6 +77,18 @@ export const listNavigation = [
   {
     title: 'Мои бронирования',
     value: SortingTypesNavigation.MyQuests,
+  },
+];
+
+
+export const listNoAuthNavigation = [
+  {
+    title: 'Квесты',
+    value: SortingTypesNavigation.Quests,
+  },
+  {
+    title: 'Контакты',
+    value: SortingTypesNavigation.Contacts,
   },
 ];
 

@@ -14,16 +14,6 @@ export enum SortingTypesLevel {
   All = 'all',
 }
 
-export type Quests = {
-  id: string;
-  title: string;
-  previewImg: string;
-  previewImgWebp: string;
-  level: SortingTypesLevel;
-  type: SortingTypesGenre;
-  peopleMinMax: [number];
-}
-
 export type Quest = {
   id: string;
   title: string;
@@ -31,11 +21,13 @@ export type Quest = {
   previewImgWebp: string;
   level: SortingTypesLevel;
   type: SortingTypesGenre;
-  peopleMinMax: [number];
+  peopleMinMax: [number, number];
   description: string;
   coverImg: string;
   coverImgWebp: string;
 }
+
+export type Quests = Omit<Quest, 'description' | 'coverImg' | 'coverImgWebp'>[]
 
 export type Day = {
   time: string;
@@ -49,7 +41,7 @@ export enum Date {
 
 export type Location = {
   address: string;
-  coords: [number];
+  coords: [number, number];
 }
 
 export type QuestId = {

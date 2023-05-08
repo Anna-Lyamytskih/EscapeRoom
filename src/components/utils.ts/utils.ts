@@ -1,7 +1,7 @@
 import { Quests, SortingTypesGenre, SortingTypesLevel } from '../../types/quests';
 
-export const getSortingQuests = (quests: Quests[], activeSort: string) => {
-  const sortingQuests = quests.slice();
+export const getSortingQuests = (quests: Quests | undefined, activeSort: string) => {
+  const sortingQuests = (quests || []).slice();
 
   switch (activeSort) {
     case SortingTypesGenre.Adventures: return sortingQuests.filter((quest) => quest.type === SortingTypesGenre.Adventures);
@@ -14,8 +14,8 @@ export const getSortingQuests = (quests: Quests[], activeSort: string) => {
   }
 };
 
-export const getSortingQuestsLevel = (quests: Quests[], activeSort: string) => {
-  const sortingQuests = quests.slice();
+export const getSortingQuestsLevel = (quests: Quests | undefined, activeSort: string) => {
+  const sortingQuests = (quests || []).slice();
 
   switch (activeSort) {
     case SortingTypesLevel.Easy: return sortingQuests.filter((quest) => quest.level === SortingTypesLevel.Easy);
