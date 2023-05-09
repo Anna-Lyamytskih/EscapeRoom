@@ -13,7 +13,7 @@ export type LoginFormType = {
 }
 
 const LoginForm = () => {
-  const { restoreUrl } = useHistoryRedirect()
+  const { restoreUrl } = useHistoryRedirect();
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   const dispatch = useAppDispatch();
@@ -31,10 +31,10 @@ const LoginForm = () => {
     if (authorizationStatus === AuthorizationStatus.Auth) {
       restoreUrl();
     }
-  }, [authorizationStatus])
+  }, [authorizationStatus]);
 
   return (
-    <form className="login-form" action="https://echo.htmlacademy.ru/" method="post" onSubmit={handleSubmit(onSubmit)}>
+    <form className="login-form" action="https://echo.htmlacademy.ru/" method="post" onSubmit={() => handleSubmit(onSubmit)}>
       <div className="login-form__inner-wrapper">
         <h1 className="title title--size-s login-form__title">Вход</h1>
         <div className="login-form__inputs">
@@ -42,7 +42,7 @@ const LoginForm = () => {
             <label className="custom-input__label" htmlFor="email">E&nbsp;&ndash;&nbsp;mail</label>
             <input type="email" id="email" placeholder="Адрес электронной почты"
               {...register('email', {
-                required: "Поле обязательно к заполнению",
+                required: 'Поле обязательно к заполнению',
                 pattern: {
                   value: /.+@.+\..+/i,
                   message: 'Пожалуйста введите допустимый формат электронной почты (forExample@mail.ru)'
@@ -54,7 +54,7 @@ const LoginForm = () => {
             <label className="custom-input__label" htmlFor="password">Пароль</label>
             <input type="password" id="password" placeholder="Пароль"
               {...register('password', {
-                required: "Поле обязательно к заполнению",
+                required: 'Поле обязательно к заполнению',
                 pattern: {
                   value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{2,}$/g,
                   message: 'Ваш пароль должен состоять минимум из 3 символов'

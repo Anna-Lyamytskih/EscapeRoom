@@ -19,7 +19,7 @@ export type BookingFormType = {
 export type BookingFormProps = {
   quest: Quest | undefined;
   bookingData: BookingitemList | undefined;
-  selectedId: string | null;
+  selectedId: string | undefined;
 }
 
 const BookingForm = ({

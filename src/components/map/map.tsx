@@ -37,8 +37,8 @@ const currentCustomIcon = new Icon({
 type MapProps = {
   place: MapPlace;
   list?: MapPlace[];
-  selectedId?: string | null;
-  setSelectedId?: React.Dispatch<React.SetStateAction<string | null>>;
+  selectedId?: string | undefined;
+  setSelectedId?: React.Dispatch<React.SetStateAction<string | undefined>>;
 };
 
 const Map = ({ place, list, selectedId, setSelectedId }: MapProps) => {

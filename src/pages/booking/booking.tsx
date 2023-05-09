@@ -8,20 +8,24 @@ import Path from '../../components/path/path';
 import { bookingApi } from '../../store/bookinng-process/booking-api';
 import { useParams } from 'react-router-dom';
 import { questApi } from '../../store/question-process/api-action';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 
 const Booking = () => {
   const { id } = useParams();
   const questId = id;
 
-  const [selectedId, setSelectedId] = useState<string | null>(null);
-
   const { data: questData } = questApi.useGetByIdQuery(questId, { skip: !questId });
   const quest = questData;
 
   const { data: bookingData } = bookingApi.useGetByIdQuery(`${questId || ''}`, { skip: !questId });
   const bookingItem = bookingData?.[0];
+
+  const [selectedId, setSelectedId] = useState<string | undefined>(bookingItem?.id);
+
+  useEffect(() => {
+    setSelectedId(bookingItem?.id);
+  }, [bookingItem?.id]);
   // TODO из bookingData мы получаем информацию о доступном времени я так понимаю
   return (
     <>
@@ -47,14 +51,14 @@ const Booking = () => {
                       {bookingItem && (
                         <Map
                           place={bookingItem}
-                          list={[bookingItem]}
+                          list={bookingData}
                           selectedId={selectedId}
                           setSelectedId={setSelectedId}
                         />
                       )}
                     </div>
                   </div>
-                  <p className="booking-map__address">Вы&nbsp;выбрали: наб. реки Карповки&nbsp;5, лит&nbsp;П, м. Петроградская</p>
+                  <p className="booking-map__address">{bookingItem?.location.address}</p>
                 </div>
               </div>
               <BookingForm
