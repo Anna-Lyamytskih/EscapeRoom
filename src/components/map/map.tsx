@@ -62,6 +62,10 @@ const Map = ({ place, list, selectedId, setSelectedId }: MapProps) => {
         const marker = new Marker({
           lat: item.location.coords[0],
           lng: item.location.coords[1],
+        }).on('click', () => {
+          if (setSelectedId) {
+            setSelectedId(item.id);
+          }
         });
 
         marker
