@@ -3,13 +3,13 @@ import Footer from '../../components/footer/footer';
 import Title from '../../components/title/title';
 import Header from '../../components/header/header';
 import Path from '../../components/path/path';
-//import QuestCard from '../../components/quest-card/quest-card';
+import QuestCard from '../../components/quest-card/quest-card';
 import { reservationApi } from '../../store/reservation-process/api';
 
 
 const MyQuests = () => {
   const { data } = reservationApi.useGetListQuery();
-  console.log(data);
+  console.log('data', data);
 
   return (
     <>
@@ -29,7 +29,7 @@ const MyQuests = () => {
                 <h1 className="title title--size-m page-content__title">Мои бронирования</h1>
               </div>
               <div className="cards-grid">
-                {/* <QuestCard page={'page'} quest={quest} /> */}
+                {/* { <QuestCard page={'page'} quest={quest} /> } */}
               </div>
             </div>
           </main>
@@ -38,5 +38,6 @@ const MyQuests = () => {
       </body>
     </>
   );
-}
+};
+
 export default MyQuests;

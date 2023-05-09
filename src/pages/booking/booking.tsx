@@ -3,7 +3,7 @@ import Decor from '../../components/decor/decor';
 import Footer from '../../components/footer/footer';
 import Title from '../../components/title/title';
 import Header from '../../components/header/header';
-//import Map from '../../components/map/map';
+import Map from '../../components/map/map';
 import Path from '../../components/path/path';
 import { useAppSelector } from '../../hooks';
 import { bookingApi } from '../../store/bookinng-process/booking-api';
@@ -12,7 +12,6 @@ import { questApi } from '../../store/question-process/api-action';
 
 
 const Booking = () => {
-  const place = useAppSelector((state) => state.BOOKING.place);
   const { id } = useParams();
   const questId = id;
 
@@ -20,8 +19,8 @@ const Booking = () => {
   const quest = questData;
 
   const { data: bookingData } = bookingApi.useGetByIdQuery(`${questId || ''}`, { skip: !questId });
-  console.log(bookingData);
-
+  console.log('bookingData', bookingData);
+  // TODO из bookingData мы получаем информацию о доступном времени я так понимаю
   return (
     <>
       <head>
@@ -43,13 +42,13 @@ const Booking = () => {
                 <div className="booking-map">
                   <div className="map">
                     <div className="map__container">
-                      {/* <Map place={place} /> */}
+                      {/* {<Map place={place} />} */}
                     </div>
                   </div>
                   <p className="booking-map__address">Вы&nbsp;выбрали: наб. реки Карповки&nbsp;5, лит&nbsp;П, м. Петроградская</p>
                 </div>
               </div>
-              <BookingForm place={place} />
+              <BookingForm quest={quest} bookingData={bookingData} key={quest?.id} />
             </div>
           </main>
           <Footer />

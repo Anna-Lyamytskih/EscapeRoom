@@ -1,4 +1,4 @@
-import { Link, generatePath, useParams } from 'react-router-dom';
+import { Link, generatePath, useLocation, useParams } from 'react-router-dom';
 import Decor from '../../components/decor/decor';
 import Footer from '../../components/footer/footer';
 import Title from '../../components/title/title';
@@ -11,16 +11,16 @@ import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { AuthorizationStatus } from '../../constants';
 import { AppRoute } from '../../router/constants';
 import { questApi } from '../../store/question-process/api-action';
+import { useHistoryRedirect } from '../../hooks/useHistoryRedirect';
 
 const QuestPage = () => {
   const { id } = useParams();
   const questId = id;
 
+  const location = useLocation();
+  console.log(location)
   const { data } = questApi.useGetByIdQuery(questId, { skip: !questId });
   const quest = data;
-
-  console.log('data', data);
-  console.log(quest);
 
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
@@ -29,6 +29,12 @@ const QuestPage = () => {
   const linkToBooking = generatePath(AppRoute.Booking, {
     id: `${questId || ''}`,
   });
+
+  const { saveUrl } = useHistoryRedirect()
+
+  const onLoginRedirect = () => {
+    saveUrl(location.pathname)
+  }
 
   return (
     <>
@@ -58,7 +64,7 @@ const QuestPage = () => {
               <p className="quest-page__description">{quest?.description}</p>
               {authorizationStatus === AuthorizationStatus.Auth ?
                 <Link className="btn btn--accent btn--cta quest-page__btn" to={linkToBooking}>Забронировать</Link> :
-                <Link className="btn btn--accent btn--cta quest-page__btn" to={linkToLogin}>Забронировать</Link>}
+                <Link className="btn btn--accent btn--cta quest-page__btn" onClick={onLoginRedirect} to={linkToLogin}>Забронировать</Link>}
             </div>
           </div>
         </main>

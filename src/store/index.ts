@@ -11,6 +11,7 @@ const middleware: any[] = [
   // reservationApi.middleware,
   // bookingApi.middleware,
   // questApi.middleware,
+  //authorizationApi.middleware,
 ]
 
 export const store = configureStore({

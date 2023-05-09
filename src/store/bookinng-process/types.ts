@@ -1,5 +1,17 @@
 import { Location } from '../../types/location';
-import { ReservationQuest } from './api-actions';
+import { Quest } from '../../types/quests';
+
+export type ReservationQuest = {
+  date: Date;
+  time: string;
+  contactPerson: string;
+  phone: string;
+  withChildren: boolean;
+  peopleCount: number;
+  id: string;
+  location: Location;
+  quest: Quest;
+}
 
 export type Place = {
   id: string;

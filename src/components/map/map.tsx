@@ -9,7 +9,7 @@ export const URL_MARKER_CURRENT = 'img/svg/pin-active.svg';
 
 export const DEFAULT_COORDINATE = {
   location: {
-    coords: [48.85661, 2.351499],
+    coords: [59.968322, 30.317359],
   },
   zoom: 11,
 };

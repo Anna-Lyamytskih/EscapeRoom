@@ -3,22 +3,17 @@ import { baseQuery } from '../../services/api';
 import { createApi } from '@reduxjs/toolkit/dist/query/react';
 
 export type BookingInformation = {
-  date: Date;
-  time: string;
+  date?: 'today' | 'tomorrow';
+  time?: string;
   contactPerson: string;
   phone: string;
   withChildren: boolean;
   peopleCount: number;
-  placeId: string;
+  placeId?: string;
 }
 
-export type Date = {
-  today: string;
-  tomorrow: string;
-};
-
 export const bookingApi = createApi({
-  reducerPath: 'reservationApi',
+  reducerPath: 'bookingApi',
   baseQuery,
   tagTypes: ['BookingList', 'BookingItem'],
   endpoints: (builder) => ({

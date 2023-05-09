@@ -38,8 +38,6 @@ export const loginAction = createAsyncThunk<void, LoginFormType, {
         saveToken(data.token);
       }
       dispatch(setUserData(data));
-      //TODO после того, как авторизщация произошла нужно оставит человека на этой же странице, не нужно на главную
-      dispatch(redirectToRoute(AppRoute.Root));
     } catch (e) {
       console.log(e)
       throw e;
