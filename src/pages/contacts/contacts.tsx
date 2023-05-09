@@ -3,8 +3,17 @@ import Decor from '../../components/decor/decor';
 import Footer from '../../components/footer/footer';
 import Title from '../../components/title/title';
 import Header from '../../components/header/header';
-//import Map from '../../components/map/map';
+import Map from '../../components/map/map';
 import Path from '../../components/path/path';
+import { MapPlace } from '../../types/map';
+
+export const DEFAULT_PLACE: MapPlace = {
+  id: 'id',
+  location: {
+    address: 'Санкт-Петербург, Набережная реки Карповка, д 5П',
+    coords: [59.968322, 30.317359],
+  },
+};
 
 const Contacts = () => (
   <>
@@ -26,7 +35,7 @@ const Contacts = () => (
             </div>
             <div className="contacts">
               <ContactItem />
-              {/* <Map /> */}
+              <Map place={DEFAULT_PLACE} list={[DEFAULT_PLACE]} />
             </div>
           </div>
         </main>
