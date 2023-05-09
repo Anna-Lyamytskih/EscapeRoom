@@ -1,29 +1,47 @@
 import { APIRoute } from '../../services/constants';
 import { baseQuery } from '../../services/api';
 import { createApi } from '@reduxjs/toolkit/dist/query/react';
+import { Location } from '../../types/quests';
 
 export type BookingInformation = {
-  date?: 'today' | 'tomorrow';
-  time?: string;
   contactPerson: string;
   phone: string;
   withChildren: boolean;
   peopleCount: number;
-  placeId?: string;
+  placeId: string;
+  date: 'today' | 'tomorrow';
+  time: string;
 }
+
+export type BookingItem = {
+  id: string;
+  location: Location;
+  slots: {
+    today: {
+      time: string;
+      isAvailable: boolean;
+    }[];
+    tomorrow: {
+      time: string;
+      isAvailable: boolean;
+    }[];
+  };
+}
+
+export type BookingitemList = BookingItem[]
 
 export const bookingApi = createApi({
   reducerPath: 'bookingApi',
   baseQuery,
   tagTypes: ['BookingList', 'BookingItem'],
   endpoints: (builder) => ({
-    getById: builder.query<BookingInformation[], string | undefined>({
-      query: (id = '') => `${APIRoute.Quests}/${id}/${APIRoute.Booking}`,
+    getById: builder.query<BookingitemList, string | undefined>({
+      query: (id = '') => `${APIRoute.Quests}/${id}${APIRoute.Booking}`,
       providesTags: ['BookingItem'],
     }),
     addItem: builder.mutation<BookingInformation, BookingInformation>({
       query: (body) => ({
-        url: `${APIRoute.Quests}/${body.placeId}/${APIRoute.Booking}`,
+        url: `${APIRoute.Quests}/${body.placeId}${APIRoute.Booking}`,
         method: 'POST',
         body,
       }),

@@ -556,12 +556,12 @@ input[type=number] {
 select,
 textarea,
 input:matches([type=email],
-[type=number],
-[type=password],
-[type=search],
-[type=tel],
-[type=text],
-[type=url]) {
+  [type=number],
+  [type=password],
+  [type=search],
+  [type=tel],
+  [type=text],
+  [type=url]) {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -1004,7 +1004,7 @@ button,
   border-bottom: 1px solid rgba(230, 230, 230, 0.25);
 }
 
-.page-content__subtitle + .page-content__title {
+.page-content__subtitle+.page-content__title {
   margin-top: 8px;
 }
 
@@ -1141,7 +1141,7 @@ button,
   transition: background-color 0.3s ease;
 }
 
-.filter__icon ~ .filter__label-text {
+.filter__icon~.filter__label-text {
   font-size: 14px;
   letter-spacing: -0.02em;
 }
@@ -1171,25 +1171,25 @@ button,
   clip: rect(0 0 0 0);
 }
 
-.filter input:checked + .filter__label {
+.filter input:checked+.filter__label {
   cursor: default;
   pointer-events: none;
 }
 
-.filter input:checked + .filter__label .filter__label-text::after {
+.filter input:checked+.filter__label .filter__label-text::after {
   background-color: #f2890f;
 }
 
-.filter input:focus-visible + .filter__label {
+.filter input:focus-visible+.filter__label {
   pointer-events: none;
 }
 
-.filter input:focus-visible + .filter__label .filter__label-text {
+.filter input:focus-visible+.filter__label .filter__label-text {
   outline: 0.15em solid #f2890f;
   outline-offset: 0.2em;
 }
 
-.filter input:focus-visible + .filter__label .filter__label-text::after {
+.filter input:focus-visible+.filter__label .filter__label-text::after {
   background-color: rgba(255, 255, 255, 0);
 }
 
@@ -1490,12 +1490,12 @@ button,
   clip: rect(0 0 0 0);
 }
 
-.custom-checkbox input:focus-visible ~ .custom-checkbox__icon {
+.custom-checkbox input:focus-visible~.custom-checkbox__icon {
   outline: auto;
   outline-color: #f2890f;
 }
 
-.custom-checkbox input:checked ~ .custom-checkbox__icon {
+.custom-checkbox input:checked~.custom-checkbox__icon {
   color: rgba(255, 255, 255, 0.4);
 }
 
@@ -1531,7 +1531,7 @@ button,
   transition: opacity 0.3s ease;
 }
 
-.custom-checkbox input:checked + .custom-checkbox__icon svg {
+.custom-checkbox input:checked+.custom-checkbox__icon svg {
   opacity: 1;
 }
 
@@ -1619,18 +1619,18 @@ button,
   pointer-events: none;
 }
 
-.custom-radio input:checked + .custom-radio__label {
+.custom-radio input:checked+.custom-radio__label {
   background: -webkit-gradient(linear, left top, left bottom, from(#2cdb52), to(#13ba19));
   background: -o-linear-gradient(top, #2cdb52 0%, #13ba19 100%);
   background: linear-gradient(180deg, #2cdb52 0%, #13ba19 100%);
   cursor: default;
 }
 
-.custom-radio input:checked + .custom-radio__label::after {
+.custom-radio input:checked+.custom-radio__label::after {
   border-color: transparent;
 }
 
-.custom-radio input:focus-visible + .custom-radio__label {
+.custom-radio input:focus-visible+.custom-radio__label {
   outline: auto;
   outline-color: #2cdb52;
 }
@@ -1639,7 +1639,7 @@ button,
   pointer-events: none;
 }
 
-.custom-radio input:disabled + .custom-radio__label {
+.custom-radio input:disabled+.custom-radio__label {
   cursor: default;
   opacity: 0.5;
   pointer-events: none;
@@ -2032,7 +2032,7 @@ button,
     border-color: #f39425;
   }
 
-  .filter input:hover + .filter__label .filter__label-text::after {
+  .filter input:hover+.filter__label .filter__label-text::after {
     background-color: #f2890f;
   }
 

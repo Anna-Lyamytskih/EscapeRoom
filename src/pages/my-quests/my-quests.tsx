@@ -3,13 +3,12 @@ import Footer from '../../components/footer/footer';
 import Title from '../../components/title/title';
 import Header from '../../components/header/header';
 import Path from '../../components/path/path';
-import QuestCard from '../../components/quest-card/quest-card';
 import { reservationApi } from '../../store/reservation-process/api';
+import QuestCard from '../../components/quest-card/quest-card';
 
 
 const MyQuests = () => {
   const { data } = reservationApi.useGetListQuery();
-  console.log('data', data);
 
   return (
     <>
@@ -29,7 +28,9 @@ const MyQuests = () => {
                 <h1 className="title title--size-m page-content__title">Мои бронирования</h1>
               </div>
               <div className="cards-grid">
-                {/* { <QuestCard page={'page'} quest={quest} /> } */}
+                {(data || []).map((item) => (
+                  <QuestCard key={item.id} quest={item} />
+                ))}
               </div>
             </div>
           </main>

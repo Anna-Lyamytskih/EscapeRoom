@@ -1,8 +1,7 @@
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { loginAction } from '../../store/user-process/api-actions';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { AuthorizationStatus } from '../../constants';
-import { AppRoute } from '../../router/constants';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useHistoryRedirect } from '../../hooks/useHistoryRedirect';

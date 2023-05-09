@@ -1,5 +1,6 @@
 import { Location } from '../../types/location';
 import { Quest } from '../../types/quests';
+import { BookingItem } from './booking-api';
 
 export type ReservationQuest = {
   date: Date;
@@ -13,26 +14,11 @@ export type ReservationQuest = {
   quest: Quest;
 }
 
-export type Place = {
-  id: string;
-  location: Location;
-  slots: {
-    today: [{
-      time: string;
-      isAvailable: boolean;
-    }];
-    tomorrow: [{
-      time: string;
-      isAvailable: boolean;
-    }];
-  };
-};
-
 export type bookingProcess = {
   places: ReservationQuest[];
-  place: Place | null;
+  place: BookingItem | null;
   isAvailable: boolean;
-  nextBookinQuest: Place | null;
+  nextBookinQuest: BookingItem | null;
 };
 
 export type PlaceId = {

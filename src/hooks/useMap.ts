@@ -1,6 +1,9 @@
 import leaflet, { Map, Marker, FeatureGroup } from 'leaflet';
 import { useEffect, useState, useRef, MutableRefObject } from 'react';
-import { Place } from '../store/bookinng-process/types';
+import { BookingItem } from '../store/bookinng-process/booking-api';
+
+const ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
+const TITLE = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
 
 export const useMapMarkers = ({ map, mapMarkers }: {
   map: Map | null;
@@ -24,7 +27,7 @@ export const useMapMarkers = ({ map, mapMarkers }: {
 
 const useMap = (
   mapRef: MutableRefObject<HTMLElement | null>,
-  place: Place,
+  place: BookingItem,
   zoom?: number,
 ): { map: Map | null; mapMarkers: FeatureGroup | null } => {
   const [map, setMap] = useState<Map | null>(null);
@@ -43,7 +46,9 @@ const useMap = (
       });
 
       leaflet
-        .tileLayer('TITLE')
+        .tileLayer(TITLE, {
+          attribution: ATTRIBUTION,
+        })
         .addTo(instance);
 
       setMap(instance);

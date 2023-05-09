@@ -39,7 +39,7 @@ export const loginAction = createAsyncThunk<void, LoginFormType, {
       }
       dispatch(setUserData(data));
     } catch (e) {
-      console.log(e)
+      console.log(e); // eslint-disable-line
       throw e;
     }
   },
@@ -57,7 +57,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
       dropToken();
       dispatch(setUserData(null));
     } catch (e) {
-      console.log(e);
+      console.log(e); // eslint-disable-line
       throw e;
     }
   },

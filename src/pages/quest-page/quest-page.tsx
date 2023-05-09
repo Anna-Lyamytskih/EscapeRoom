@@ -8,7 +8,7 @@ import { useAppSelector } from '../../hooks';
 // import { useEffect } from 'react';
 // import { fetchQuestByIdAction } from '../../store/question-process/api-action';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
-import { AuthorizationStatus } from '../../constants';
+import { AuthorizationStatus, listGenre, listLevel } from '../../constants';
 import { AppRoute } from '../../router/constants';
 import { questApi } from '../../store/question-process/api-action';
 import { useHistoryRedirect } from '../../hooks/useHistoryRedirect';
@@ -18,7 +18,6 @@ const QuestPage = () => {
   const questId = id;
 
   const location = useLocation();
-  console.log(location)
   const { data } = questApi.useGetByIdQuery(questId, { skip: !questId });
   const quest = data;
 
@@ -30,11 +29,14 @@ const QuestPage = () => {
     id: `${questId || ''}`,
   });
 
-  const { saveUrl } = useHistoryRedirect()
+  const { saveUrl } = useHistoryRedirect();
 
   const onLoginRedirect = () => {
-    saveUrl(location.pathname)
-  }
+    saveUrl(location.pathname);
+  };
+
+  const levelOption = listLevel.find((item) => item.value === quest?.level);
+  const genreOption = listGenre.find((item) => item.value === quest?.type);
 
   return (
     <>
@@ -47,7 +49,7 @@ const QuestPage = () => {
           <div className="container container--size-l">
             <div className="quest-page__content">
               <h1 className="title title--size-l title--uppercase quest-page__title">{quest?.title}</h1>
-              <p className="subtitle quest-page__subtitle"><span className="visually-hidden">Жанр:</span>{quest?.type}
+              <p className="subtitle quest-page__subtitle"><span className="visually-hidden">Жанр:</span>{genreOption?.title}
               </p>
               <ul className="tags tags--size-l quest-page__tags">
                 <li className="tags__item">
@@ -58,7 +60,7 @@ const QuestPage = () => {
                 <li className="tags__item">
                   <svg width="14" height="14" aria-hidden="true">
                     <use xlinkHref="#icon-level"></use>
-                  </svg>{quest?.level}
+                  </svg>{levelOption?.title}
                 </li>
               </ul>
               <p className="quest-page__description">{quest?.description}</p>

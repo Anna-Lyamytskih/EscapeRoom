@@ -5,21 +5,23 @@ import Title from '../../components/title/title';
 import Header from '../../components/header/header';
 import Map from '../../components/map/map';
 import Path from '../../components/path/path';
-import { useAppSelector } from '../../hooks';
 import { bookingApi } from '../../store/bookinng-process/booking-api';
 import { useParams } from 'react-router-dom';
 import { questApi } from '../../store/question-process/api-action';
+import { useState } from 'react';
 
 
 const Booking = () => {
   const { id } = useParams();
   const questId = id;
 
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+
   const { data: questData } = questApi.useGetByIdQuery(questId, { skip: !questId });
   const quest = questData;
 
   const { data: bookingData } = bookingApi.useGetByIdQuery(`${questId || ''}`, { skip: !questId });
-  console.log('bookingData', bookingData);
+  const bookingItem = bookingData?.[0];
   // TODO из bookingData мы получаем информацию о доступном времени я так понимаю
   return (
     <>
@@ -42,13 +44,25 @@ const Booking = () => {
                 <div className="booking-map">
                   <div className="map">
                     <div className="map__container">
-                      {/* {<Map place={place} />} */}
+                      {bookingItem && (
+                        <Map
+                          place={bookingItem}
+                          list={[bookingItem]}
+                          selectedId={selectedId}
+                          setSelectedId={setSelectedId}
+                        />
+                      )}
                     </div>
                   </div>
                   <p className="booking-map__address">Вы&nbsp;выбрали: наб. реки Карповки&nbsp;5, лит&nbsp;П, м. Петроградская</p>
                 </div>
               </div>
-              <BookingForm quest={quest} bookingData={bookingData} key={quest?.id} />
+              <BookingForm
+                quest={quest}
+                bookingData={bookingData}
+                key={quest?.id}
+                selectedId={selectedId}
+              />
             </div>
           </main>
           <Footer />

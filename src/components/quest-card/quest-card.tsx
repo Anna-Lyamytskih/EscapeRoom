@@ -2,6 +2,7 @@ import { Link, generatePath, useLocation } from 'react-router-dom';
 import { Quest } from '../../types/quests';
 import { AppRoute } from '../../router/constants';
 import { reservationApi } from '../../store/reservation-process/api';
+import { listLevel } from '../../constants';
 
 type QuestCardProps = {
   quest: Partial<Quest>;
@@ -12,13 +13,15 @@ const QuestCard = ({ quest }: QuestCardProps) => {
 
   const [deleteItem] = reservationApi.useDeleteItemMutation();
 
-  const handleDeleteItem = async (id: string | undefined) => {
-    await deleteItem(id).unwrap;
-  }
+  const handleDeleteItem = (id: string | undefined) => {
+    deleteItem(id);
+  };
 
   const link = generatePath(AppRoute.Quest, {
     id: `${quest?.id || ''}`,
   });
+
+  const levelOption = listLevel.find((item) => item.value === quest.level);
 
   return (
     <div className="quest-card">
@@ -44,7 +47,7 @@ const QuestCard = ({ quest }: QuestCardProps) => {
           <li className="tags__item">
             <svg width="14" height="14" aria-hidden="true">
               <use xlinkHref="#icon-level"></use>
-            </svg>{quest.level}
+            </svg>{levelOption?.title}
           </li>
         </ul>
         {location.pathname === '/reservation' ? <button className="btn btn--accent btn--secondary quest-card__btn" type="button" onClick={() => handleDeleteItem(quest?.id)}> Отменить</button> : ''}

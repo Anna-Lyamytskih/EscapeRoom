@@ -1,0 +1,12 @@
+.map {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: #d9d9d9;
+}
+
+.map__container {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}

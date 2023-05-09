@@ -28,7 +28,6 @@ export const baseQuery = fetchBaseQuery({
   baseUrl: BACKEND_URL,
   prepareHeaders: (headers) => {
     const token = getToken();
-    console.log(token, getToken())
     if (token && headers) {
       headers.set('x-token', ` ${token}`);
     }

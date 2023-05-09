@@ -1,9 +1,7 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import BookingFormDate from '../booking-form-date/booking-form-date';
-import { Place } from '../../store/bookinng-process/types';
-import { BookingInformation, bookingApi } from '../../store/bookinng-process/booking-api';
+import { BookingitemList, bookingApi } from '../../store/bookinng-process/booking-api';
 import { useParams } from 'react-router-dom';
-import { questApi } from '../../store/question-process/api-action';
 import { Quest } from '../../types/quests';
 import { reservationApi } from '../../store/reservation-process/api';
 
@@ -20,15 +18,19 @@ export type BookingFormType = {
 
 export type BookingFormProps = {
   quest: Quest | undefined;
-  bookingData: BookingInformation[] | undefined;
+  bookingData: BookingitemList | undefined;
+  selectedId: string | null;
 }
 
-const BookingForm = ({ quest, bookingData }: BookingFormProps) => {
+const BookingForm = ({
+  quest,
+  bookingData,
+  selectedId,
+}: BookingFormProps) => {
   const { id } = useParams();
 
-  const questId = id;
-  const { data: bookingItem } = bookingApi.useGetByIdQuery(id);
-  //TODO const [addBooking] = bookingApi.useAddItemMutation();
+  const { data: bookingItemList } = bookingApi.useGetByIdQuery(id);
+  //TODO
   //Нужно сообразить, что делать?
   //По идее заполенные поля должны отправляться в мои брони, т.к. после успешной бюрони перекидвает на страницу мои брони
   const [addBooking] = reservationApi.useAddItemMutation();
@@ -47,9 +49,8 @@ const BookingForm = ({ quest, bookingData }: BookingFormProps) => {
       phone: data.phone,
       withChildren: data.withChildren,
       peopleCount: data.peopleCount,
-      placeId: id,
+      placeId: selectedId,
     };
-    console.log(bookingInformation);
     //TODO Отправляем информацию чтобы забрать ее в quest-card, которые будут отрисовываться в Мои бронирования
     addBooking(bookingInformation);
     reset();
@@ -62,40 +63,24 @@ const BookingForm = ({ quest, bookingData }: BookingFormProps) => {
         <fieldset className="booking-form__date-section">
           <legend className="booking-form__date-title">Сегодня</legend>
           <div className="booking-form__date-inner-wrapper">
-            <label className="custom-radio booking-form__date">
-              {/* {bookingItem?.slots.today.map((time) => (
-                <label className="custom-radio booking-form__date">
-                  <input type="radio" id="today9h45m" name="date" required value="today9h45m" disabled key={time?.time}
-                    {...register('today'), {
-                      value: true,
-                      message: `${time.time}`
-                    }}
-                  /><span className="custom-radio__label">{time.time}</span>
-                </label>
-              ))} */}
-              {/* TODO как передать флаг  isAvailable? Нужно применить onCgange в инпуте?
-              По идее я получаю ответ от формы today:'время', но кроме времени нужно получать флаг */}
-            </label>
+            {(bookingItemList || []).map(
+              (bookingItem) => (
+                <BookingFormDate item={bookingItem} slotItem='today' key={`${bookingItem.id}--today`} />
+              )
+            )}
+            {/* TODO как передать флаг  isAvailable? Нужно применить onCgange в инпуте?
+            По идее я получаю ответ от формы today:'время', но кроме времени нужно получать флаг */}
           </div>
-          {/* <BookingFormDate placeTime={bookingData?.slots.today} /> */}
         </fieldset>
         <fieldset className="booking-form__date-section">
           <legend className="booking-form__date-title">Завтра</legend>
           <div className="booking-form__date-inner-wrapper">
-            <label className="custom-radio booking-form__date">
-              {/* {bookingItem?.slots.tomorrow.map((time) => (
-                <label className="custom-radio booking-form__date">
-                  <input type="radio" id="today9h45m" name="date" required value="today9h45m" disabled key={time?.time}
-                    {...register('tomorrow'), {
-                      value: true,
-                      message: `${time.time}`,
-                    }}
-                  /><span className="custom-radio__label">{time.time}</span>
-                </label>
-              ))} */}
-            </label>
+            {(bookingItemList || []).map(
+              (bookingItem) => (
+                <BookingFormDate item={bookingItem} slotItem='tomorrow' key={`${bookingItem.id}--tomorrow`} />
+              )
+            )}
           </div>
-          {/* <BookingFormDate placeTime={bookingData?.slots.tomorrow} /> */}
         </fieldset>
       </fieldset>
       <fieldset className="booking-form__section">

@@ -12,7 +12,6 @@ const FilterItem = ({ id, value }: FilterItemProps) => {
   const dispatch = useAppDispatch();
 
   const handleSortClick = (sortName: SortingTypesLevel) => {
-    console.log(handleSortClick);
     dispatch(changeSortLevel(sortName));
   };
 
