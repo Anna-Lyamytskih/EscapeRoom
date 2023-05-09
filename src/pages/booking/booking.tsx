@@ -23,6 +23,8 @@ const Booking = () => {
 
   const [selectedId, setSelectedId] = useState<string | undefined>(bookingItem?.id);
 
+  const selectedItem = bookingData?.find((item) => item.id === selectedId);
+
   useEffect(() => {
     setSelectedId(bookingItem?.id);
   }, [bookingItem?.id]);
@@ -58,7 +60,7 @@ const Booking = () => {
                       )}
                     </div>
                   </div>
-                  <p className="booking-map__address">{bookingItem?.location.address}</p>
+                  <p className="booking-map__address">{selectedItem?.location.address}</p>
                 </div>
               </div>
               <BookingForm
