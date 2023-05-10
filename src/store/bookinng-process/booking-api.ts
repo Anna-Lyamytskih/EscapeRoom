@@ -13,6 +13,17 @@ export type BookingInformation = {
   time: string;
 }
 
+export type BookingFormType = {
+  date: 'today' | 'tomorrow';
+  time: string;
+  contactPerson: string;
+  phone: string;
+  peopleCount: number;
+  withChildren: boolean;
+  placeId: string;
+  questId: string;
+}
+
 export type BookingItem = {
   id: string;
   location: Location;
@@ -39,9 +50,9 @@ export const bookingApi = createApi({
       query: (id = '') => `${APIRoute.Quests}/${id}${APIRoute.Booking}`,
       providesTags: ['BookingItem'],
     }),
-    addItem: builder.mutation<BookingInformation, BookingInformation>({
-      query: (body) => ({
-        url: `${APIRoute.Quests}/${body.placeId}${APIRoute.Booking}`,
+    addItem: builder.mutation<BookingInformation, BookingFormType>({
+      query: ({questId, ...body}) => ({
+        url: `${APIRoute.Quests}/${questId}${APIRoute.Booking}`,
         method: 'POST',
         body,
       }),

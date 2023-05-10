@@ -3,7 +3,7 @@ import { loginAction } from '../../store/user-process/api-actions';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { AuthorizationStatus } from '../../constants';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { useHistoryRedirect } from '../../hooks/useHistoryRedirect';
 import { useEffect } from 'react';
 
@@ -22,19 +22,19 @@ const LoginForm = () => {
     mode: 'onChange'
   });
 
-  const onSubmit: SubmitHandler<LoginFormType> = (data) => {
-    dispatch(loginAction(data));
-    reset();
-  };
-
   useEffect(() => {
     if (authorizationStatus === AuthorizationStatus.Auth) {
       restoreUrl();
     }
   }, [authorizationStatus]);
 
+  const onSubmit = handleSubmit((data) => {
+    dispatch(loginAction(data));
+    reset();
+  });
+
   return (
-    <form className="login-form" action="https://echo.htmlacademy.ru/" method="post" onSubmit={() => handleSubmit(onSubmit)}>
+    <form className="login-form" action="" method="" onSubmit={(event) => void onSubmit(event)}>
       <div className="login-form__inner-wrapper">
         <h1 className="title title--size-s login-form__title">Вход</h1>
         <div className="login-form__inputs">
@@ -47,7 +47,8 @@ const LoginForm = () => {
                   value: /.+@.+\..+/i,
                   message: 'Пожалуйста введите допустимый формат электронной почты (forExample@mail.ru)'
                 }
-              })} />
+              })}
+            />
             <div> {errors?.email && <p>{errors?.email?.message}</p>}</div>
           </div>
           <div className="custom-input login-form__input">
@@ -56,10 +57,11 @@ const LoginForm = () => {
               {...register('password', {
                 required: 'Поле обязательно к заполнению',
                 pattern: {
-                  value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{2,}$/g,
+                  value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{3,}$/g,
                   message: 'Ваш пароль должен состоять минимум из 3 символов'
                 }
-              })} />
+              })}
+            />
             <div> {errors?.email && <p>{errors?.password?.message}</p>}</div>
           </div>
         </div>
@@ -82,5 +84,6 @@ const LoginForm = () => {
       </label>
     </form>
   );
-}
+};
+
 export default LoginForm;

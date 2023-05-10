@@ -16,6 +16,7 @@ const browserHistory = createBrowserHistory();
 
 const Router = () => {
   const authorizationStatus = useAppSelector((state) => state.USER.authorizationStatus);
+  const checkAuthIsLoading = useAppSelector((state) => state.USER.checkAuthIsLoading);
 
   return (
     <HistoryRouter history={browserHistory}>
@@ -24,8 +25,29 @@ const Router = () => {
           <Route path={AppRoute.Root} element={<Main />} />
           <Route path={AppRoute.Quest} element={<QuestPage />} />
           <Route path={AppRoute.Contacts} element={<Contacts />} />
-          <Route path={AppRoute.MyQuests} element={<PrivateRoute authorizationStatus={authorizationStatus}> <MyQuests /> </PrivateRoute>} />
-          <Route path={AppRoute.Booking} element={<PrivateRoute authorizationStatus={authorizationStatus}> <Booking /> </PrivateRoute>} />
+          <Route
+            path={AppRoute.MyQuests}
+            element={(
+              <PrivateRoute
+                authorizationStatus={authorizationStatus}
+                checkAuthIsLoading={checkAuthIsLoading}
+              >
+                <MyQuests />
+              </PrivateRoute>
+            )}
+          />
+          <Route
+            path={AppRoute.Booking}
+            element={(
+              <PrivateRoute
+                authorizationStatus={authorizationStatus}
+                checkAuthIsLoading={checkAuthIsLoading}
+              >
+                <Booking />
+              </PrivateRoute>
+            )}
+          />
+          <Route path="/not-found" element={<NotFound />} />
           <Route path="*" element={<NotFound />} />
         </Route>
         <Route path={AppRoute.Login} element={<Login />} />

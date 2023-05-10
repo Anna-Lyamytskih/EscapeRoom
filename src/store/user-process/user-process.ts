@@ -5,6 +5,7 @@ import { checkAuthAction, loginAction, logoutAction } from './api-actions';
 
 const initialState: UserProcess = {
   authorizationStatus: AuthorizationStatus.Unknown,
+  checkAuthIsLoading: true,
   userData: null,
 };
 
@@ -20,9 +21,11 @@ export const userProcessSlice = createSlice({
     builder
       .addCase(checkAuthAction.fulfilled, (state, action) => {
         state.authorizationStatus = AuthorizationStatus.Auth;
+        state.checkAuthIsLoading = false;
       })
       .addCase(checkAuthAction.rejected, (state) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;
+        state.checkAuthIsLoading = false;
       })
       .addCase(loginAction.fulfilled, (state, action) => {
         state.authorizationStatus = AuthorizationStatus.Auth;

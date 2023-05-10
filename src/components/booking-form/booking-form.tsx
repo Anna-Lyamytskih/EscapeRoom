@@ -1,85 +1,96 @@
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import BookingFormDate from '../booking-form-date/booking-form-date';
-import { BookingitemList, bookingApi } from '../../store/bookinng-process/booking-api';
-import { useParams } from 'react-router-dom';
+import { BookingFormType, BookingItem, bookingApi } from '../../store/bookinng-process/booking-api';
+import { Navigate, useParams } from 'react-router-dom';
 import { Quest } from '../../types/quests';
-import { reservationApi } from '../../store/reservation-process/api';
+import { AppRoute } from '../../router/constants';
+import { useHistoryRedirect } from '../../hooks/useHistoryRedirect';
 
-export type BookingFormType = {
-  date?: {
-    today: string;
-    tomorrow: string;
-  };
-  contactPerson: string;
-  phone: string;
-  peopleCount: string;
-  withChildren: boolean;
-}
 
 export type BookingFormProps = {
   quest: Quest | undefined;
-  bookingData: BookingitemList | undefined;
-  selectedId: string | undefined;
+  selectedItem: BookingItem;
 }
 
 const BookingForm = ({
   quest,
-  bookingData,
-  selectedId,
+  selectedItem,
 }: BookingFormProps) => {
   const { id } = useParams();
 
-  const { data: bookingItemList } = bookingApi.useGetByIdQuery(id);
-  //TODO
-  //Нужно сообразить, что делать?
-  //По идее заполенные поля должны отправляться в мои брони, т.к. после успешной бюрони перекидвает на страницу мои брони
-  const [addBooking] = reservationApi.useAddItemMutation();
-
-  const minPerson = String(quest?.peopleMinMax[0]);
-  const maxPerson = String(quest?.peopleMinMax[1]);
-
-  const { register, handleSubmit, reset, formState: { errors, isValid } } = useForm<BookingFormType>({
+  const {
+    register, handleSubmit, reset,
+    formState: { errors, isValid },
+    setValue, control
+  } = useForm<BookingFormType>({
     defaultValues: { withChildren: true },
     mode: 'onChange'
   });
 
-  const onSubmit: SubmitHandler<BookingFormType> = (data) => {
-    const bookingInformation = {
+  if (!id) {
+    return <Navigate to={AppRoute.NotFound} />;
+  }
+
+  const [addBooking] = bookingApi.useAddItemMutation();
+
+  const minPerson = String(quest?.peopleMinMax[0]);
+  const maxPerson = String(quest?.peopleMinMax[1]);
+
+  const { saveUrl, restoreUrl } = useHistoryRedirect();
+
+  const onBookingRedirect = () => {
+    saveUrl(AppRoute.MyQuests);
+  };
+
+  const onSubmit = handleSubmit((data) => {
+    const bookingInformation: BookingFormType = {
+      date: data.date,
+      time: data.time,
       contactPerson: data.contactPerson,
       phone: data.phone,
       withChildren: data.withChildren,
-      peopleCount: data.peopleCount,
-      placeId: selectedId,
+      peopleCount: +data.peopleCount,
+      placeId: selectedItem.id,
+      questId: id,
     };
-    //TODO Отправляем информацию чтобы забрать ее в quest-card, которые будут отрисовываться в Мои бронирования
-    addBooking(bookingInformation);
+    addBooking(bookingInformation).then(() => {
+      onBookingRedirect();
+      restoreUrl();
+    });
     reset();
-  };
+  });
 
   return (
-    <form className="booking-form" onSubmit={() => handleSubmit(onSubmit)}>
+    <form className="booking-form" onSubmit={(event) => void onSubmit(event)}>
+      <input
+        type="hidden"
+        {...register('date')}
+      />
       <fieldset className="booking-form__section">
         <legend className="visually-hidden">Выбор даты и времени</legend>
         <fieldset className="booking-form__date-section">
           <legend className="booking-form__date-title">Сегодня</legend>
           <div className="booking-form__date-inner-wrapper">
-            {(bookingItemList || []).map(
-              (bookingItem) => (
-                <BookingFormDate item={bookingItem} slotItem='today' key={`${bookingItem.id}--today`} />
-              )
-            )}
-            {/* TODO как передать флаг  isAvailable? Нужно применить onCgange в инпуте?
-            По идее я получаю ответ от формы today:'время', но кроме времени нужно получать флаг */}
+
+            <BookingFormDate
+              register={register}
+              item={selectedItem}
+              slotItem='today'
+              setValue={setValue}
+              control={control}
+            />
           </div>
         </fieldset>
         <fieldset className="booking-form__date-section">
           <legend className="booking-form__date-title">Завтра</legend>
           <div className="booking-form__date-inner-wrapper">
-            {(bookingItemList || []).map(
-              (bookingItem) => (
-                <BookingFormDate item={bookingItem} slotItem='tomorrow' key={`${bookingItem.id}--tomorrow`} />
-              )
-            )}
+            <BookingFormDate
+              register={register}
+              item={selectedItem}
+              slotItem='tomorrow'
+              setValue={setValue}
+              control={control}
+            />
           </div>
         </fieldset>
       </fieldset>

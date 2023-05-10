@@ -19,7 +19,7 @@ export const listGenre = [
   },
   {
     title: 'Приключения',
-    value: SortingTypesGenre.Adventures,
+    value: SortingTypesGenre.Adventure,
   },
   {
     title: 'Ужасы',

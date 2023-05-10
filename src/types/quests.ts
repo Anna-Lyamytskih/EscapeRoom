@@ -1,5 +1,5 @@
 export enum SortingTypesGenre {
-  Adventures = 'adventures',
+  Adventure = 'adventure',
   Horror = 'horror',
   Mystic = 'mystic',
   Detective = 'detective',

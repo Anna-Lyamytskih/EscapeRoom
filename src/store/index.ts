@@ -3,16 +3,16 @@ import { createAPI } from '../services/api';
 import { rootReducer } from './root-reducer/root-reducer';
 import { bookingApi } from './bookinng-process/booking-api';
 import { reservationApi } from './reservation-process/api';
+import { questApi } from './question-process/api-action';
 
 
 export const api = createAPI();
 
-const middleware: any[] = [
-  // reservationApi.middleware,
-  // bookingApi.middleware,
-  // questApi.middleware,
-  //authorizationApi.middleware,
-]
+// const middleware: any[] = [
+//   // reservationApi.middleware,
+//   // bookingApi.middleware,
+//   // questApi.middleware,
+// ]
 
 export const store = configureStore({
   reducer: rootReducer,
@@ -21,5 +21,5 @@ export const store = configureStore({
       thunk: {
         extraArgument: api,
       },
-    }).concat(...middleware)
+    }).concat(reservationApi.middleware).concat(bookingApi.middleware).concat(questApi.middleware)
 });

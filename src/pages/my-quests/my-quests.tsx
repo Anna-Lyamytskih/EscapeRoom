@@ -29,7 +29,7 @@ const MyQuests = () => {
               </div>
               <div className="cards-grid">
                 {(data || []).map((item) => (
-                  <QuestCard key={item.id} quest={item} />
+                  <QuestCard key={item.id} quest={item.quest} location={item.location} date={item.date} time={item.time} peopleCount={item.peopleCount} itemId={item.id}/>
                 ))}
               </div>
             </div>

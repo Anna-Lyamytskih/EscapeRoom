@@ -5,8 +5,6 @@ import Title from '../../components/title/title';
 import Header from '../../components/header/header';
 import Path from '../../components/path/path';
 import { useAppSelector } from '../../hooks';
-// import { useEffect } from 'react';
-// import { fetchQuestByIdAction } from '../../store/question-process/api-action';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { AuthorizationStatus, listGenre, listLevel } from '../../constants';
 import { AppRoute } from '../../router/constants';

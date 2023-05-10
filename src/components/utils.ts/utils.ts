@@ -4,7 +4,7 @@ export const getSortingQuests = (quests: Quests | undefined, activeSort: string)
   const sortingQuests = (quests || []).slice();
 
   switch (activeSort) {
-    case SortingTypesGenre.Adventures: return sortingQuests.filter((quest) => quest.type === SortingTypesGenre.Adventures);
+    case SortingTypesGenre.Adventure: return sortingQuests.filter((quest) => quest.type === SortingTypesGenre.Adventure);
     case SortingTypesGenre.Detective: return sortingQuests.filter((quest) => quest.type === SortingTypesGenre.Detective);
     case SortingTypesGenre.Horror: return sortingQuests.filter((quest) => quest.type === SortingTypesGenre.Horror);
     case SortingTypesGenre.Mystic: return sortingQuests.filter((quest) => quest.type === SortingTypesGenre.Mystic);

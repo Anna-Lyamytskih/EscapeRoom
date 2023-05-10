@@ -28,7 +28,7 @@ const Booking = () => {
   useEffect(() => {
     setSelectedId(bookingItem?.id);
   }, [bookingItem?.id]);
-  // TODO из bookingData мы получаем информацию о доступном времени я так понимаю
+
   return (
     <>
       <head>
@@ -42,7 +42,8 @@ const Booking = () => {
             <Decor img={quest} />
             <div className="container container--size-s">
               <div className="page-content__title-wrapper">
-                <h1 className="subtitle subtitle--size-l page-content__subtitle">Бронирование квеста
+                <h1 className="subtitle subtitle--size-l page-content__subtitle">
+                  Бронирование квеста
                 </h1>
                 <p className="title title--size-m title--uppercase page-content__title">{quest?.title}</p>
               </div>
@@ -63,12 +64,12 @@ const Booking = () => {
                   <p className="booking-map__address">{selectedItem?.location.address}</p>
                 </div>
               </div>
-              <BookingForm
-                quest={quest}
-                bookingData={bookingData}
-                key={quest?.id}
-                selectedId={selectedId}
-              />
+              {selectedItem && (
+                <BookingForm
+                  quest={quest}
+                  selectedItem={selectedItem}
+                />
+              )}
             </div>
           </main>
           <Footer />
