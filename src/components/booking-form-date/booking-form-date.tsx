@@ -12,13 +12,14 @@ export type BookingFormDateProps = {
 const BookingFormDate = ({ register, item, slotItem, setValue, control }: BookingFormDateProps): JSX.Element => {
   const slots = item?.slots[slotItem];
   // const watchTime = useWatch({control, name: 'time'});
-
+console.log(slots)
   return (
     <>
       {slots.map(
         ({ time, isAvailable }) => (
           <label className="custom-radio booking-form__date" key={`${item.id}--${slotItem}--${time}`}>
             <input
+              defaultValue=''
               type="radio"
               required
               disabled={!isAvailable}

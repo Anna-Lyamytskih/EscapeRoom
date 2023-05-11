@@ -52,16 +52,26 @@ const BookingForm = ({
       placeId: selectedItem.id,
       questId: id,
     };
-    addBooking(bookingInformation).then(() => {
-      onBookingRedirect();
-      restoreUrl();
-    });
-    reset();
+    //   addPost({ id: 1, name: 'Example' })
+    // .unwrap()
+    // .then((payload) => console.log('fulfilled', payload))
+    // .catch((error) => console.error('rejected', error))
+
+    addBooking(bookingInformation)
+      .unwrap()
+      .then((response) => {
+        console.log(response)
+        onBookingRedirect();
+        restoreUrl();
+      })
+      .catch((error) => console.error('rejected', error));
+    // reset();
   });
 
   return (
     <form className="booking-form" onSubmit={(event) => void onSubmit(event)}>
       <input
+        defaultValue=''
         type="hidden"
         {...register('date')}
       />
@@ -70,7 +80,6 @@ const BookingForm = ({
         <fieldset className="booking-form__date-section">
           <legend className="booking-form__date-title">Сегодня</legend>
           <div className="booking-form__date-inner-wrapper">
-
             <BookingFormDate
               register={register}
               item={selectedItem}
@@ -97,7 +106,7 @@ const BookingForm = ({
         <legend className="visually-hidden">Контактная информация</legend>
         <div className="custom-input booking-form__input">
           <label className="custom-input__label" htmlFor="name">Ваше имя</label>
-          <input type="text" id="name" placeholder="Имя"
+          <input type="text" id="name" placeholder="Имя" defaultValue=''
             {...register('contactPerson', {
               required: 'Поле обязательно к заполнению',
               minLength: {
@@ -114,7 +123,7 @@ const BookingForm = ({
         </div>
         <div className="custom-input booking-form__input">
           <label className="custom-input__label" htmlFor="tel">Контактный телефон</label>
-          <input type="tel" id="tel" placeholder="Телефон"
+          <input type="tel" id="tel" placeholder="Телефон" defaultValue=''
             {...register('phone', {
               required: 'Поле обязательно к заполнению',
               pattern: {
@@ -127,7 +136,7 @@ const BookingForm = ({
         </div>
         <div className="custom-input booking-form__input">
           <label className="custom-input__label" htmlFor="person">Количество участников</label>
-          <input type="number" id="person" placeholder="Количество участников"
+          <input type="number" id="person" placeholder="Количество участников" defaultValue=''
             {...register('peopleCount', {
               required: 'Поле обязательно к заполнению',
               min: {
@@ -143,7 +152,7 @@ const BookingForm = ({
           <div> {errors?.peopleCount && <p>{errors?.peopleCount.message}</p>}</div>
         </div>
         <label className="custom-checkbox booking-form__checkbox booking-form__checkbox--children">
-          <input type="checkbox" id="children" {...register('withChildren')} />
+          <input type="checkbox" defaultValue='' id="children" {...register('withChildren')} />
           <span className="custom-checkbox__icon">
             <svg width="20" height="17" aria-hidden="true">
               <use xlinkHref="#icon-tick"></use>
@@ -154,7 +163,7 @@ const BookingForm = ({
       </fieldset>
       <button className="btn btn--accent btn--cta booking-form__submit" type="submit" disabled={!isValid}>Забронировать</button>
       <label className="custom-checkbox booking-form__checkbox booking-form__checkbox--agreement">
-        <input type="checkbox" id="id-order-agreement" name="user-agreement" required />
+        <input type="checkbox" defaultValue='' id="id-order-agreement" name="user-agreement" required />
         <span className="custom-checkbox__icon">
           <svg width="20" height="17" aria-hidden="true">
             <use xlinkHref="#icon-tick"></use>

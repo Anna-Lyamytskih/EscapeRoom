@@ -6,15 +6,21 @@ import Header from '../../components/header/header';
 import Path from '../../components/path/path';
 import QuestCardList from '../../components/quest-card-list/quest-card-list';
 import { useGetFilteredQuests } from '../../store/question-process/question-process';
+import { questApi } from '../../store/question-process/api-action';
+import LoadingScreen from '../../components/loading-screen/loading-screen';
+import { toast } from 'react-toastify';
 
 const Main = () => {
+  const { isLoading, isError } = questApi.useGetListQuery();
   const quests = useGetFilteredQuests();
 
-  //TODO сделать фильтрацию (при обновлении сайта фильтрация сбрасывается)
-  //TODOне отображается изображение при переходе к карточке
-  //TODO создать авторизацию
-  //TODO разобраться с leathlet - картой для бронирования(при бронировании выходит список мест (метки) с информацией)
-  //TODO разобраться с формой бронирования
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
+
+  if (isError) {
+    toast.error('Unfortunately, we can\'t show quests');
+  }
 
   return (
     <>

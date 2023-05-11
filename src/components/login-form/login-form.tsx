@@ -6,6 +6,7 @@ import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { useForm } from 'react-hook-form';
 import { useHistoryRedirect } from '../../hooks/useHistoryRedirect';
 import { useEffect } from 'react';
+import LoadingScreen from '../loading-screen/loading-screen';
 
 export type LoginFormType = {
   email: string;
@@ -18,7 +19,7 @@ const LoginForm = () => {
 
   const dispatch = useAppDispatch();
 
-  const { register, handleSubmit, reset, formState: { errors, isValid } } = useForm<LoginFormType>({
+  const { formState: { isLoading }, register, handleSubmit, reset, formState: { errors, isValid } } = useForm<LoginFormType>({
     mode: 'onChange'
   });
 
@@ -33,6 +34,10 @@ const LoginForm = () => {
     reset();
   });
 
+  if (isLoading) {
+    return <LoadingScreen />
+  }
+
   return (
     <form className="login-form" action="" method="" onSubmit={(event) => void onSubmit(event)}>
       <div className="login-form__inner-wrapper">
@@ -40,7 +45,7 @@ const LoginForm = () => {
         <div className="login-form__inputs">
           <div className="custom-input login-form__input">
             <label className="custom-input__label" htmlFor="email">E&nbsp;&ndash;&nbsp;mail</label>
-            <input type="email" id="email" placeholder="Адрес электронной почты"
+            <input type="email" id="email" placeholder="Адрес электронной почты" defaultValue=''
               {...register('email', {
                 required: 'Поле обязательно к заполнению',
                 pattern: {
@@ -53,7 +58,7 @@ const LoginForm = () => {
           </div>
           <div className="custom-input login-form__input">
             <label className="custom-input__label" htmlFor="password">Пароль</label>
-            <input type="password" id="password" placeholder="Пароль"
+            <input type="password" id="password" placeholder="Пароль" defaultValue=''
               {...register('password', {
                 required: 'Поле обязательно к заполнению',
                 pattern: {
@@ -68,7 +73,7 @@ const LoginForm = () => {
         <button className="btn btn--accent btn--general login-form__submit" type="submit" disabled={!isValid}>Войти</button>
       </div>
       <label className="custom-checkbox login-form__checkbox">
-        <input type="checkbox" id="id-order-agreement" name="user-agreement" required />
+        <input type="checkbox" id="id-order-agreement" name="user-agreement" defaultValue='' required />
         <span className="custom-checkbox__icon" >
           <svg width="20" height="17" aria-hidden="true">
             <use xlinkHref="#icon-tick"></use>

@@ -11,6 +11,7 @@ export const useHistoryRedirect = () => {
   };
 
   const restoreUrl = () => {
+
     const redirectUri = localStorage.getItem(REDIRECT_LS_KEY);
     if (redirectUri) {
       navigate(redirectUri);

@@ -7,24 +7,20 @@ import LoginForm from '../../components/login-form/login-form';
 
 const Login = () => (
   <>
-    <head>
-      <Title />
-    </head>
-    <body>
-      <Path />
-      <div className="wrapper">
-        <Header />
-        <main className="decorated-page login">
-          <Decor />
-          <div className="container container--size-l">
-            <div className="login__form">
-              <LoginForm />
-            </div>
+    <Title />
+    <Path />
+    <div className="wrapper">
+      <Header />
+      <main className="decorated-page login">
+        <Decor />
+        <div className="container container--size-l">
+          <div className="login__form">
+            <LoginForm />
           </div>
-        </main>
-        <Footer />
-      </div>
-    </body>
+        </div>
+      </main>
+      <Footer />
+    </div>
   </>
 );
 

@@ -10,13 +10,15 @@ import { AuthorizationStatus, listGenre, listLevel } from '../../constants';
 import { AppRoute } from '../../router/constants';
 import { questApi } from '../../store/question-process/api-action';
 import { useHistoryRedirect } from '../../hooks/useHistoryRedirect';
+import LoadingScreen from '../../components/loading-screen/loading-screen';
+import { toast } from 'react-toastify';
 
 const QuestPage = () => {
   const { id } = useParams();
   const questId = id;
 
   const location = useLocation();
-  const { data } = questApi.useGetByIdQuery(questId, { skip: !questId });
+  const { data, isLoading, isError } = questApi.useGetByIdQuery(questId, { skip: !questId });
   const quest = data;
 
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
@@ -35,6 +37,14 @@ const QuestPage = () => {
 
   const levelOption = listLevel.find((item) => item.value === quest?.level);
   const genreOption = listGenre.find((item) => item.value === quest?.type);
+
+  if (isLoading) {
+    return <LoadingScreen />
+  }
+
+  if (isError) {
+    toast.error('Unfortunately, we can\'t show quest information');
+  }
 
   return (
     <>

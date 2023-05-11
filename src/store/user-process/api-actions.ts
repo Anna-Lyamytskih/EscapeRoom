@@ -7,6 +7,8 @@ import { setUserData } from './user-process';
 import { AppRoute } from '../../router/constants';
 import { dropToken, saveToken } from '../../services/token';
 import { LoginFormType } from '../../components/login-form/login-form';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const redirectToRoute = createAction(
   'app/redirectToRoute',
@@ -39,7 +41,7 @@ export const loginAction = createAsyncThunk<void, LoginFormType, {
       }
       dispatch(setUserData(data));
     } catch (e) {
-      console.log(e); // eslint-disable-line
+      toast.error('Failed to authorization');
       throw e;
     }
   },
@@ -57,7 +59,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
       dropToken();
       dispatch(setUserData(null));
     } catch (e) {
-      console.log(e); // eslint-disable-line
+      toast.error('Failed to logout');
       throw e;
     }
   },

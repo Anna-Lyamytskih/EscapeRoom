@@ -17,31 +17,27 @@ export const DEFAULT_PLACE: MapPlace = {
 
 const Contacts = () => (
   <>
-    <head>
-      <Title />
-    </head>
-    <body>
-      <Path />
-      <div className="wrapper">
-        <header className="header">
-          <Header />
-        </header>
-        <main className="page-content decorated-page">
-          <Decor />
-          <div className="container">
-            <div className="page-content__title-wrapper page-content__title-wrapper--underlined">
-              <p className="subtitle page-content__subtitle">квесты в&nbsp;Санкт-Петербурге</p>
-              <h1 className="title title--size-m page-content__title">Контакты</h1>
-            </div>
-            <div className="contacts">
-              <ContactItem />
-              <Map place={DEFAULT_PLACE} list={[DEFAULT_PLACE]} />
-            </div>
+    <Title />
+    <Path />
+    <div className="wrapper">
+      <header className="header">
+        <Header />
+      </header>
+      <main className="page-content decorated-page">
+        <Decor />
+        <div className="container">
+          <div className="page-content__title-wrapper page-content__title-wrapper--underlined">
+            <p className="subtitle page-content__subtitle">квесты в&nbsp;Санкт-Петербурге</p>
+            <h1 className="title title--size-m page-content__title">Контакты</h1>
           </div>
-        </main>
-        <Footer />
-      </div>
-    </body>
+          <div className="contacts">
+            <ContactItem />
+            <Map place={DEFAULT_PLACE} list={[DEFAULT_PLACE]} />
+          </div>
+        </div>
+      </main>
+      <Footer />
+    </div>
   </>
 );
 

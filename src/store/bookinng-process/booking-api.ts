@@ -2,6 +2,7 @@ import { APIRoute } from '../../services/constants';
 import { baseQuery } from '../../services/api';
 import { createApi } from '@reduxjs/toolkit/dist/query/react';
 import { Location } from '../../types/quests';
+import { reservationApi } from '../reservation-process/api';
 
 export type BookingInformation = {
   contactPerson: string;
@@ -44,24 +45,22 @@ export type BookingitemList = BookingItem[]
 export const bookingApi = createApi({
   reducerPath: 'bookingApi',
   baseQuery,
-  tagTypes: ['BookingList', 'BookingItem'],
+  tagTypes: ['BookingItem'],
   endpoints: (builder) => ({
     getById: builder.query<BookingitemList, string | undefined>({
       query: (id = '') => `${APIRoute.Quests}/${id}${APIRoute.Booking}`,
       providesTags: ['BookingItem'],
     }),
     addItem: builder.mutation<BookingInformation, BookingFormType>({
-      query: ({questId, ...body}) => ({
+      query: ({ questId, ...body }) => ({
         url: `${APIRoute.Quests}/${questId}${APIRoute.Booking}`,
         method: 'POST',
         body,
       }),
-      invalidatesTags: ['BookingList', 'BookingItem'],
+      invalidatesTags: ['BookingItem'],
+      onCacheEntryAdded: (args, { dispatch }) => {
+        dispatch(reservationApi.util.invalidateTags(['ReservationList']))
+      }
     }),
   }),
 });
-
-//TODO нужно открыть нужную карточку с данными бронирования это значит нужно как-то айдишник карточки передавать
-// чтобы потом среди данных бронирования находить нужную карточку с информацией? При том, что при бронировании выбирается время
-// и то время что уже забронировано не может быть выбрано (свойство isAvailable)
-// и если бронирвоание удаляет пользователь, данные обновляются и время снова становится свободное для брони

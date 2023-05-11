@@ -18,6 +18,7 @@ const FilterItem = ({ id, value }: FilterItemProps) => {
   return (
     <li className="filter__item">
       <input type="radio"
+        defaultValue=''
         name="level"
         id={`${id}-level`}
         checked={filter.level === id}

@@ -18,6 +18,7 @@ const GenreFilter = ({ id, value }: GenreFilterProps) => {
   return (
     <li className="filter__item">
       <input
+        defaultValue=''
         type="radio"
         name="type"
         id={`${id}-genre`}
