@@ -17,6 +17,7 @@ const BookingForm = ({
   selectedItem,
 }: BookingFormProps) => {
   const { id } = useParams();
+  const { saveUrl, restoreUrl } = useHistoryRedirect();
 
   const {
     register, handleSubmit, reset,
@@ -35,8 +36,6 @@ const BookingForm = ({
 
   const minPerson = String(quest?.peopleMinMax[0]);
   const maxPerson = String(quest?.peopleMinMax[1]);
-
-  const { saveUrl, restoreUrl } = useHistoryRedirect();
 
   const onBookingRedirect = () => {
     saveUrl(AppRoute.MyQuests);
