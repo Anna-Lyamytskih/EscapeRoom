@@ -38,13 +38,3 @@ export enum Date {
   Today = 'TODAY',
   Tomorrow = 'TOMORROW'
 }
-
-export type Location = {
-  address: string;
-  coords: [number, number];
-}
-
-export type QuestId = {
-  id: string;
-}
-

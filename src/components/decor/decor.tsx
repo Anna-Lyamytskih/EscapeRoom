@@ -1,7 +1,7 @@
 import { useLocation } from 'react-router-dom';
 import { Quest } from '../../types/quests';
 
-type DecorProps = {
+export type DecorProps = {
   img?: Quest | null;
 }
 

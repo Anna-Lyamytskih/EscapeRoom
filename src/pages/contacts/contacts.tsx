@@ -4,16 +4,8 @@ import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import Map from '../../components/map/map';
 import Path from '../../components/path/path';
-import { MapPlace } from '../../types/map';
 import { Helmet } from 'react-helmet-async';
-
-export const DEFAULT_PLACE: MapPlace = {
-  id: 'id',
-  location: {
-    address: 'Санкт-Петербург, Набережная реки Карповка, д 5П',
-    coords: [59.968322, 30.317359],
-  },
-};
+import { DEFAULT_PLACE } from './constants';
 
 const Contacts = () => (
   <>

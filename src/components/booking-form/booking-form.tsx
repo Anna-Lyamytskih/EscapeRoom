@@ -1,10 +1,11 @@
 import { useForm } from 'react-hook-form';
 import BookingFormDate from '../booking-form-date/booking-form-date';
-import { BookingFormType, BookingItem, bookingApi } from '../../store/bookinng-process/booking-api';
+import { bookingApi } from '../../store/bookinng-api/booking-api';
 import { Navigate, useParams } from 'react-router-dom';
 import { Quest } from '../../types/quests';
 import { AppRoute } from '../../router/constants';
 import { useHistoryRedirect } from '../../hooks/useHistoryRedirect';
+import { BookingFormType, BookingItem } from '../../store/bookinng-api/types';
 
 
 export type BookingFormProps = {

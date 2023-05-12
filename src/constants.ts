@@ -91,10 +91,3 @@ export const listNoAuthNavigation = [
     value: SortingTypesNavigation.Contacts,
   },
 ];
-
-export enum FetchStatus {
-  Idle = 'Idle',
-  Pending = 'Pending',
-  Success = 'Success',
-  Failed = 'Failed',
-}

@@ -1,26 +1,10 @@
 import { useEffect, useRef } from 'react';
 import useMap, { useMapMarkers } from '../../hooks/useMap';
-import { Marker, PointExpression, Icon } from 'leaflet';
-import { BookingItem } from '../../store/bookinng-process/booking-api';
+import { Marker, Icon } from 'leaflet';
 import './style.css';
 import 'leaflet/dist/leaflet.css';
 import { MapPlace } from '../../types/map';
-
-export const URL_MARKER_DEFAULT = '/img/svg/pin-default.svg';
-
-export const URL_MARKER_CURRENT = '/img/svg/pin-active.svg';
-
-export const DEFAULT_COORDINATE: Partial<BookingItem> & { zoom: number } = {
-  id: 'id',
-  location: {
-    address: 'Санкт-Петербург, Набережная реки Карповка, д 5П',
-    coords: [59.968322, 30.317359],
-  },
-  zoom: 11,
-};
-
-export const ICON_SIZE = [27, 39] as PointExpression | undefined;
-export const ICON_ANCHOR = [13.5, 39] as PointExpression | undefined;
+import { DEFAULT_COORDINATE, ICON_ANCHOR, ICON_SIZE, URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from './constants';
 
 const defaultCustomIcon = new Icon({
   iconUrl: URL_MARKER_DEFAULT,

@@ -1,44 +1,8 @@
 import { APIRoute } from '../../services/constants';
 import { baseQuery } from '../../services/api';
 import { createApi } from '@reduxjs/toolkit/dist/query/react';
-import { Location } from '../../types/quests';
-import { reservationApi } from '../reservation-process/api';
-
-export type BookingInformation = {
-  contactPerson: string;
-  phone: string;
-  withChildren: boolean;
-  peopleCount: number;
-  placeId: string;
-  date: 'today' | 'tomorrow';
-  time: string;
-}
-
-export type BookingFormType = {
-  date: 'today' | 'tomorrow';
-  time: string;
-  contactPerson: string;
-  phone: string;
-  peopleCount: number;
-  withChildren: boolean;
-  placeId: string;
-  questId: string;
-}
-
-export type BookingItem = {
-  id: string;
-  location: Location;
-  slots: {
-    today: {
-      time: string;
-      isAvailable: boolean;
-    }[];
-    tomorrow: {
-      time: string;
-      isAvailable: boolean;
-    }[];
-  };
-}
+import { reservationApi } from '../reservation-api/reservation-api';
+import { BookingFormType, BookingInformation, BookingItem } from './types';
 
 export type BookingitemList = BookingItem[]
 

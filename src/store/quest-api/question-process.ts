@@ -2,7 +2,7 @@ import { getSortingQuests, getSortingQuestsLevel } from '../../components/utils.
 import { NameSpace } from '../../constants';
 import { useAppSelector } from '../../hooks';
 import { SortingTypesGenre, SortingTypesLevel } from '../../types/quests';
-import { questApi } from './api-action';
+import { questApi } from './quest-api';
 import { QuestionProcess } from './types';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 

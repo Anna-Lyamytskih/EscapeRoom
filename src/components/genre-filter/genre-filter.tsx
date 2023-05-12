@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { changeSortGenre } from '../../store/question-process/question-process';
+import { changeSortGenre } from '../../store/quest-api/question-process';
 import { SortingTypesGenre } from '../../types/quests';
 
 type GenreFilterProps = {

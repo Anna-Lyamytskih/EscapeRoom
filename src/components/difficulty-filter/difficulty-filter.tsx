@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { changeSortLevel } from '../../store/question-process/question-process';
+import { changeSortLevel } from '../../store/quest-api/question-process';
 import { SortingTypesLevel } from '../../types/quests';
 
 type FilterItemProps = {

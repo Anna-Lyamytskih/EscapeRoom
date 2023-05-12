@@ -1,9 +1,7 @@
 import leaflet, { Map, Marker, FeatureGroup } from 'leaflet';
 import { useEffect, useState, useRef, MutableRefObject } from 'react';
 import { MapPlace } from '../types/map';
-
-const ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
-const TITLE = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
+import { ATTRIBUTION, TITLE } from './constants';
 
 export const useMapMarkers = ({ map, mapMarkers }: {
   map: Map | null;

@@ -2,7 +2,7 @@ import Decor from '../../components/decor/decor';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import Path from '../../components/path/path';
-import { reservationApi } from '../../store/reservation-process/api';
+import { reservationApi } from '../../store/reservation-api/reservation-api';
 import QuestCard from '../../components/quest-card/quest-card';
 import LoadingScreen from '../../components/loading-screen/loading-screen';
 import { Helmet } from 'react-helmet-async';

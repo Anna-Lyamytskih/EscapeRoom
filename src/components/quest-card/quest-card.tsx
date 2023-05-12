@@ -1,9 +1,10 @@
 import { Link, generatePath, useLocation } from 'react-router-dom';
 import { Quest } from '../../types/quests';
 import { AppRoute } from '../../router/constants';
-import { reservationApi } from '../../store/reservation-process/api';
+import { reservationApi } from '../../store/reservation-api/reservation-api';
 import { listLevel } from '../../constants';
 import { Location } from '../../types/location';
+import { listDate } from './constants';
 
 type QuestCardProps = {
   quest: Partial<Quest>;
@@ -13,22 +14,6 @@ type QuestCardProps = {
   peopleCount?: number;
   itemId?: string;
 };
-
-export enum SortingDate {
-  Today = 'today',
-  Tomorrow = 'tomorrow',
-}
-
-const listDate = [
-  {
-    title: 'Сегодня',
-    value: SortingDate.Today,
-  },
-  {
-    title: 'Завтра',
-    value: SortingDate.Tomorrow,
-  },
-];
 
 const QuestCard = ({ quest, location, date, time, peopleCount, itemId }: QuestCardProps) => {
   const locations = useLocation();

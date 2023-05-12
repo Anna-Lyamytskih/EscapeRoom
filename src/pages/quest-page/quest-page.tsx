@@ -7,7 +7,7 @@ import { useAppSelector } from '../../hooks';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { AuthorizationStatus, listGenre, listLevel } from '../../constants';
 import { AppRoute } from '../../router/constants';
-import { questApi } from '../../store/question-process/api-action';
+import { questApi } from '../../store/quest-api/quest-api';
 import { useHistoryRedirect } from '../../hooks/useHistoryRedirect';
 import LoadingScreen from '../../components/loading-screen/loading-screen';
 import { Helmet } from 'react-helmet-async';

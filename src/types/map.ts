@@ -1,3 +1,3 @@
-import { BookingItem } from '../store/bookinng-process/booking-api';
+import { BookingItem } from '../store/bookinng-api/types';
 
 export type MapPlace = Omit<BookingItem, 'slots'>
