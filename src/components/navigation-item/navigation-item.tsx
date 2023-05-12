@@ -14,6 +14,6 @@ const NavigationItem = ({ title, value }: NavigationItemProps) => {
       <Link className={location.pathname === value ? 'link active' : 'link'} to={value}>{title}</Link>
     </li >
   );
-}
+};
 export default NavigationItem;
 
