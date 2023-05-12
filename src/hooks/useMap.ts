@@ -34,7 +34,9 @@ const useMap = (
   const isRenderedRef = useRef<boolean>(false);
 
   useEffect(() => {
-    if (mapRef.current !== null && !isRenderedRef.current) {
+    let isMounted = true;
+
+    if (isMounted && mapRef.current !== null && !isRenderedRef.current) {
       const center = {
         lat: place?.location.coords[0],
         lng: place?.location.coords[1],
@@ -55,6 +57,10 @@ const useMap = (
       setMapMarkers(new FeatureGroup().addTo(instance));
       isRenderedRef.current = true;
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, [mapRef, map, place, zoom]);
 
   return { map, mapMarkers };

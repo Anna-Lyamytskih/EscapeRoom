@@ -24,9 +24,15 @@ const LoginForm = () => {
   });
 
   useEffect(() => {
-    if (authorizationStatus === AuthorizationStatus.Auth) {
+    let isMounted = true;
+
+    if (isMounted && authorizationStatus === AuthorizationStatus.Auth) {
       restoreUrl();
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, [authorizationStatus]);
 
   const onSubmit = handleSubmit((data) => {

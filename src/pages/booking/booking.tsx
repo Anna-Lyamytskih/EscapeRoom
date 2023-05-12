@@ -26,7 +26,15 @@ const Booking = () => {
   const selectedItem = bookingData?.find((item) => item.id === selectedId);
 
   useEffect(() => {
-    setSelectedId(bookingItem?.id);
+    let isMounted = true;
+
+    if (isMounted) {
+      setSelectedId(bookingItem?.id);
+    }
+
+    return () => {
+      isMounted = false;
+    };
   }, [bookingItem?.id]);
 
   if (isLoadingQuest || isLoadingBookingData) {

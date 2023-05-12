@@ -33,14 +33,22 @@ const Map = ({ place, list, selectedId, setSelectedId }: MapProps) => {
   const { addMarker, clearMarkers } = useMapMarkers({ map, mapMarkers });
 
   useEffect(() => {
-    if (map) {
+    let isMounted = true;
+
+    if (isMounted && map) {
       const coords = cityLocation?.location?.coords as [number, number];
       map.flyTo(coords, DEFAULT_COORDINATE.zoom);
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, [map, cityLocation]);
 
   useEffect(() => {
-    if (map && mapMarkers) {
+    let isMounted = true;
+
+    if (isMounted && map && mapMarkers) {
       clearMarkers();
       list?.forEach((item) => {
         const marker = new Marker({
@@ -62,6 +70,10 @@ const Map = ({ place, list, selectedId, setSelectedId }: MapProps) => {
         addMarker(marker);
       });
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, [map, list, selectedId]);
 
 
