@@ -35,7 +35,7 @@ const LoginForm = () => {
   });
 
   if (isLoading) {
-    return <LoadingScreen />
+    return <LoadingScreen />;
   }
 
   return (
@@ -63,11 +63,11 @@ const LoginForm = () => {
                 required: 'Поле обязательно к заполнению',
                 pattern: {
                   value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{3,}$/g,
-                  message: 'Ваш пароль должен состоять минимум из 3 символов'
+                  message: 'Ваш пароль должен состоять минимум из 1 буквы и 1 цифры, не менее 3 символов'
                 }
               })}
             />
-            <div> {errors?.email && <p>{errors?.password?.message}</p>}</div>
+            <div> {errors?.password && <p>{errors?.password?.message}</p>}</div>
           </div>
         </div>
         <button className="btn btn--accent btn--general login-form__submit" type="submit" disabled={!isValid}>Войти</button>

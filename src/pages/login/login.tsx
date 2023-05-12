@@ -1,13 +1,15 @@
 import Footer from '../../components/footer/footer';
-import Title from '../../components/title/title';
 import Header from '../../components/header/header';
 import Path from '../../components/path/path';
 import Decor from '../../components/decor/decor';
 import LoginForm from '../../components/login-form/login-form';
+import { Helmet } from 'react-helmet-async';
 
 const Login = () => (
   <>
-    <Title />
+    <Helmet>
+      <title>Авторизация - Escape Room</title>
+    </Helmet>
     <Path />
     <div className="wrapper">
       <Header />
@@ -23,6 +25,5 @@ const Login = () => (
     </div>
   </>
 );
-
 
 export default Login;

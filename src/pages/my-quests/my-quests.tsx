@@ -5,24 +5,19 @@ import Path from '../../components/path/path';
 import { reservationApi } from '../../store/reservation-process/api';
 import QuestCard from '../../components/quest-card/quest-card';
 import LoadingScreen from '../../components/loading-screen/loading-screen';
-import { toast } from 'react-toastify';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 
 const MyQuests = () => {
-  const { data, isLoading, isError } = reservationApi.useGetListQuery();
+  const { data, isLoading } = reservationApi.useGetListQuery();
 
   if (isLoading) {
     return <LoadingScreen />;
   }
 
-  if (isError) {
-    toast.error('Unfortunately, we can\'t show your booked quest information');
-  }
-
   return (
     <>
       <Helmet>
-        <title>My Title</title>
+        <title>Мои бронирования - Escape Room</title>
       </Helmet>
       <Path />
       <div className="wrapper">

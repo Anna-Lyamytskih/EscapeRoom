@@ -1,30 +1,27 @@
 import FilterItemList from '../../components/filter-item-list/difficulty-filter-list';
 import Footer from '../../components/footer/footer';
 import GenreFilterList from '../../components/genre-filter-list/genre-filter-list';
-import Title from '../../components/title/title';
 import Header from '../../components/header/header';
 import Path from '../../components/path/path';
 import QuestCardList from '../../components/quest-card-list/quest-card-list';
 import { useGetFilteredQuests } from '../../store/question-process/question-process';
 import { questApi } from '../../store/question-process/api-action';
 import LoadingScreen from '../../components/loading-screen/loading-screen';
-import { toast } from 'react-toastify';
+import { Helmet } from 'react-helmet-async';
 
 const Main = () => {
-  const { isLoading, isError } = questApi.useGetListQuery();
+  const { isLoading } = questApi.useGetListQuery();
   const quests = useGetFilteredQuests();
 
   if (isLoading) {
     return <LoadingScreen />;
   }
 
-  if (isError) {
-    toast.error('Unfortunately, we can\'t show quests');
-  }
-
   return (
     <>
-      <Title />
+      <Helmet>
+        <title>Escape Room</title>
+      </Helmet>
       <Path />
       <div className="wrapper">
         <header className="header">

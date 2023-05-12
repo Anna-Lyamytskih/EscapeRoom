@@ -30,5 +30,4 @@ const FilterItem = ({ id, value }: FilterItemProps) => {
   );
 };
 
-
 export default FilterItem;

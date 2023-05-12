@@ -18,7 +18,6 @@ const BookingFormDate = ({ register, item, slotItem, setValue }: BookingFormDate
         ({ time, isAvailable }) => (
           <label className="custom-radio booking-form__date" key={`${item.id}--${slotItem}--${time}`}>
             <input
-              defaultValue=''
               type="radio"
               required
               disabled={!isAvailable}

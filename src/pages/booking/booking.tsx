@@ -1,7 +1,6 @@
 import BookingForm from '../../components/booking-form/booking-form';
 import Decor from '../../components/decor/decor';
 import Footer from '../../components/footer/footer';
-import Title from '../../components/title/title';
 import Header from '../../components/header/header';
 import Map from '../../components/map/map';
 import Path from '../../components/path/path';
@@ -10,16 +9,16 @@ import { useParams } from 'react-router-dom';
 import { questApi } from '../../store/question-process/api-action';
 import { useEffect, useState } from 'react';
 import LoadingScreen from '../../components/loading-screen/loading-screen';
-import { toast } from 'react-toastify';
+import { Helmet } from 'react-helmet-async';
 
 const Booking = () => {
   const { id } = useParams();
   const questId = id;
 
-  const { data: questData, isLoading: isLoadingQuest, isError: isErrorQuest } = questApi.useGetByIdQuery(questId, { skip: !questId });
+  const { data: questData, isLoading: isLoadingQuest } = questApi.useGetByIdQuery(questId, { skip: !questId });
   const quest = questData;
 
-  const { data: bookingData, isLoading: isLoadingBookingData, isError: isErrorBookingData } = bookingApi.useGetByIdQuery(`${questId || ''}`, { skip: !questId });
+  const { data: bookingData, isLoading: isLoadingBookingData } = bookingApi.useGetByIdQuery(`${questId || ''}`, { skip: !questId });
   const bookingItem = bookingData?.[0];
 
   const [selectedId, setSelectedId] = useState<string | undefined>(bookingItem?.id);
@@ -34,13 +33,11 @@ const Booking = () => {
     return <LoadingScreen />;
   }
 
-  if (isErrorQuest || isErrorBookingData) {
-    toast.error('Unfortunately, we can\'t show booking quest information');
-  }
-
   return (
     <>
-      <Title />
+      <Helmet>
+        <title>Бронирование квеста - Escape Room</title>
+      </Helmet>
       <Path />
       <div className="wrapper">
         <Header />

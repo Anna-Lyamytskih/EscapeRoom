@@ -1,11 +1,11 @@
 import ContactItem from '../../components/contact-item/contact-item';
 import Decor from '../../components/decor/decor';
 import Footer from '../../components/footer/footer';
-import Title from '../../components/title/title';
 import Header from '../../components/header/header';
 import Map from '../../components/map/map';
 import Path from '../../components/path/path';
 import { MapPlace } from '../../types/map';
+import { Helmet } from 'react-helmet-async';
 
 export const DEFAULT_PLACE: MapPlace = {
   id: 'id',
@@ -17,7 +17,9 @@ export const DEFAULT_PLACE: MapPlace = {
 
 const Contacts = () => (
   <>
-    <Title />
+    <Helmet>
+      <title>Контакты - Escape Room</title>
+    </Helmet>
     <Path />
     <div className="wrapper">
       <header className="header">
@@ -41,5 +43,4 @@ const Contacts = () => (
   </>
 );
 
-//TODO нужно разобраться с картой, д.б. статична, отдельную создать для этого компонента?
 export default Contacts;

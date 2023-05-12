@@ -1,7 +1,6 @@
 import { Link, generatePath, useLocation, useParams } from 'react-router-dom';
 import Decor from '../../components/decor/decor';
 import Footer from '../../components/footer/footer';
-import Title from '../../components/title/title';
 import Header from '../../components/header/header';
 import Path from '../../components/path/path';
 import { useAppSelector } from '../../hooks';
@@ -11,14 +10,14 @@ import { AppRoute } from '../../router/constants';
 import { questApi } from '../../store/question-process/api-action';
 import { useHistoryRedirect } from '../../hooks/useHistoryRedirect';
 import LoadingScreen from '../../components/loading-screen/loading-screen';
-import { toast } from 'react-toastify';
+import { Helmet } from 'react-helmet-async';
 
 const QuestPage = () => {
   const { id } = useParams();
   const questId = id;
 
   const location = useLocation();
-  const { data, isLoading, isError } = questApi.useGetByIdQuery(questId, { skip: !questId });
+  const { data, isLoading } = questApi.useGetByIdQuery(questId, { skip: !questId });
   const quest = data;
 
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
@@ -42,13 +41,11 @@ const QuestPage = () => {
     return <LoadingScreen />;
   }
 
-  if (isError) {
-    toast.error('Unfortunately, we can\'t show quest information');
-  }
-
   return (
     <>
-      <Title />
+      <Helmet>
+        <title>Квест - Escape Room</title>
+      </Helmet>
       <Path />
       <div className="wrapper">
         <header className="header"> <Header /> </header>

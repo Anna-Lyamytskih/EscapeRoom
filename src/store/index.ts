@@ -8,12 +8,6 @@ import { questApi } from './question-process/api-action';
 
 export const api = createAPI();
 
-// const middleware: any[] = [
-//   // reservationApi.middleware,
-//   // bookingApi.middleware,
-//   // questApi.middleware,
-// ]
-
 export const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>

@@ -55,12 +55,10 @@ const BookingForm = ({
 
     addBooking(bookingInformation)
       .unwrap()
-      .then((response) => {
-        console.log(response)
+      .then(() => {
         onBookingRedirect();
         restoreUrl();
-      })
-      .catch((error) => console.error('rejected', error));
+      });
   });
 
   return (

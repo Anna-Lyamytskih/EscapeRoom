@@ -9,5 +9,4 @@ const Logo = () => (
   </span>
 );
 
-
 export default Logo;

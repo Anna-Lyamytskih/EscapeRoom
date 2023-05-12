@@ -99,4 +99,5 @@ const QuestCard = ({ quest, location, date, time, peopleCount, itemId }: QuestCa
     </div>
   );
 };
+
 export default QuestCard;

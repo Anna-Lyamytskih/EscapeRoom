@@ -5,6 +5,7 @@ import { store } from './store';
 import { Provider } from 'react-redux';
 import { checkAuthAction } from './store/user-process/api-actions';
 import { ToastContainer } from 'react-toastify';
+import { HelmetProvider } from 'react-helmet-async';
 
 store.dispatch(checkAuthAction());
 
@@ -16,7 +17,9 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <ToastContainer />
-      <App />
+      <HelmetProvider>
+        <App />
+      </HelmetProvider>
     </Provider>
   </React.StrictMode>,
 );
