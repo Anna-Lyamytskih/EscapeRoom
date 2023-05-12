@@ -1,5 +1,5 @@
 import { Control, UseFormRegister, UseFormSetValue } from 'react-hook-form';
-import { BookingFormType, BookingItem } from '../../store/bookinng-api/types';
+import { BookingFormType, BookingItem } from '../../store/booking-api/types';
 
 export type BookingFormDateProps = {
   item: BookingItem;

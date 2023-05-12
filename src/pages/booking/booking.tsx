@@ -4,7 +4,7 @@ import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import Map from '../../components/map/map';
 import Path from '../../components/path/path';
-import { bookingApi } from '../../store/bookinng-api/booking-api';
+import { bookingApi } from '../../store/booking-api/booking-api';
 import { useParams } from 'react-router-dom';
 import { questApi } from '../../store/quest-api/quest-api';
 import { useEffect, useState } from 'react';

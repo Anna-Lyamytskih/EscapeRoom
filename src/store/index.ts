@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { createAPI } from '../services/api';
 import { rootReducer } from './root-reducer/root-reducer';
-import { bookingApi } from './bookinng-api/booking-api';
+import { bookingApi } from './booking-api/booking-api';
 import { reservationApi } from './reservation-api/reservation-api';
 import { questApi } from './quest-api/quest-api';
 

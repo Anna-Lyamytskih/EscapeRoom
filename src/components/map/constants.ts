@@ -1,5 +1,5 @@
 import { PointExpression } from 'leaflet';
-import { BookingItem } from '../../store/bookinng-api/types';
+import { BookingItem } from '../../store/booking-api/types';
 
 export const URL_MARKER_DEFAULT = '/img/svg/pin-default.svg';
 
