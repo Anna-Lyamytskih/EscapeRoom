@@ -1,8 +1,5 @@
-import { getSortingQuests, getSortingQuestsLevel } from '../../components/utils.ts/utils';
 import { NameSpace } from '../../constants';
-import { useAppSelector } from '../../hooks';
 import { SortingTypesGenre, SortingTypesLevel } from '../../types/quests';
-import { questApi } from './quest-api';
 import { QuestionProcess } from './types';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
@@ -25,14 +22,5 @@ export const questProcessSlice = createSlice({
     },
   }
 });
-
-export const useGetFilteredQuests = () => {
-  const { data } = questApi.useGetListQuery();
-  const filter = useAppSelector((state) => state.QUESTS.filter);
-  const filteredByGenre = getSortingQuests(data, filter.genre);
-  const filteredByLevel = getSortingQuestsLevel(filteredByGenre, filter.level);
-
-  return filteredByLevel;
-};
 
 export const { changeSortGenre, changeSortLevel } = questProcessSlice.actions;

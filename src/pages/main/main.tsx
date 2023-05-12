@@ -4,10 +4,10 @@ import GenreFilterList from '../../components/genre-filter-list/genre-filter-lis
 import Header from '../../components/header/header';
 import Path from '../../components/path/path';
 import QuestCardList from '../../components/quest-card-list/quest-card-list';
-import { useGetFilteredQuests } from '../../store/quest-api/question-process';
 import { questApi } from '../../store/quest-api/quest-api';
 import LoadingScreen from '../../components/loading-screen/loading-screen';
 import { Helmet } from 'react-helmet-async';
+import { useGetFilteredQuests } from '../../hooks/use-get-filtered-quests/use-get-filtered-quests';
 
 const Main = () => {
   const { isLoading } = questApi.useGetListQuery();
