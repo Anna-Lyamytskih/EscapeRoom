@@ -4,7 +4,7 @@ import { bookingApi } from '../../store/bookinng-api/booking-api';
 import { Navigate, useParams } from 'react-router-dom';
 import { Quest } from '../../types/quests';
 import { AppRoute } from '../../router/constants';
-import { useHistoryRedirect } from '../../hooks/useHistoryRedirect';
+import { useHistoryRedirect } from '../../hooks/use-history-redirect/use-history-redirect';
 import { BookingFormType, BookingItem } from '../../store/bookinng-api/types';
 
 

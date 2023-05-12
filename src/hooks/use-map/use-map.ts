@@ -1,7 +1,7 @@
 import leaflet, { Map, Marker, FeatureGroup } from 'leaflet';
 import { useEffect, useState, useRef, MutableRefObject } from 'react';
-import { MapPlace } from '../types/map';
-import { ATTRIBUTION, TITLE } from './constants';
+import { MapPlace } from '../../types/map';
+import { ATTRIBUTION, TITLE } from '../constants';
 
 export const useMapMarkers = ({ map, mapMarkers }: {
   map: Map | null;

@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router';
-import { AppRoute } from '../router/constants';
+import { AppRoute } from '../../router/constants';
 
 const REDIRECT_LS_KEY = 'redirect_url';
 

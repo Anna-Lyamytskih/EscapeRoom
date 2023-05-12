@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { AuthorizationStatus } from '../../constants';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { useForm } from 'react-hook-form';
-import { useHistoryRedirect } from '../../hooks/useHistoryRedirect';
+import { useHistoryRedirect } from '../../hooks/use-history-redirect/use-history-redirect';
 import { useEffect } from 'react';
 import LoadingScreen from '../loading-screen/loading-screen';
 
@@ -19,7 +19,7 @@ const LoginForm = () => {
 
   const dispatch = useAppDispatch();
 
-  const { formState: { isLoading }, register, handleSubmit, reset, formState: { errors, isValid } } = useForm<LoginFormType>({
+  const { formState: { isLoading }, register, handleSubmit, formState: { errors, isValid } } = useForm<LoginFormType>({
     mode: 'onChange'
   });
 
@@ -37,7 +37,6 @@ const LoginForm = () => {
 
   const onSubmit = handleSubmit((data) => {
     dispatch(loginAction(data));
-    reset();
   });
 
   if (isLoading) {
@@ -45,7 +44,7 @@ const LoginForm = () => {
   }
 
   return (
-    <form className="login-form" action="" method="" onSubmit={(event) => void onSubmit(event)}>
+    <form className="login-form" action="" method="" onSubmit={(evt: React.FormEvent<HTMLFormElement>) => void onSubmit(evt)}>
       <div className="login-form__inner-wrapper">
         <h1 className="title title--size-s login-form__title">Вход</h1>
         <div className="login-form__inputs">

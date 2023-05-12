@@ -8,9 +8,10 @@ import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { AuthorizationStatus, listGenre, listLevel } from '../../constants';
 import { AppRoute } from '../../router/constants';
 import { questApi } from '../../store/quest-api/quest-api';
-import { useHistoryRedirect } from '../../hooks/useHistoryRedirect';
+import { useHistoryRedirect } from '../../hooks/use-history-redirect/use-history-redirect';
 import LoadingScreen from '../../components/loading-screen/loading-screen';
 import { Helmet } from 'react-helmet-async';
+import NotFound from '../not-found/not-found';
 
 const QuestPage = () => {
   const { id } = useParams();
@@ -39,6 +40,9 @@ const QuestPage = () => {
 
   if (isLoading) {
     return <LoadingScreen />;
+  }
+  if (!quest) {
+    return <NotFound />;
   }
 
   return (
