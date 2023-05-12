@@ -1,19 +1,18 @@
 import Decor from '../../components/decor/decor';
 import Footer from '../../components/footer/footer';
-import Title from '../../components/title/title';
 import Header from '../../components/header/header';
 import Path from '../../components/path/path';
 import { reservationApi } from '../../store/reservation-process/api';
 import QuestCard from '../../components/quest-card/quest-card';
 import LoadingScreen from '../../components/loading-screen/loading-screen';
 import { toast } from 'react-toastify';
-
+import { Helmet } from 'react-helmet';
 
 const MyQuests = () => {
   const { data, isLoading, isError } = reservationApi.useGetListQuery();
-  console.log('mequests', data)
+
   if (isLoading) {
-    return <LoadingScreen />
+    return <LoadingScreen />;
   }
 
   if (isError) {
@@ -22,7 +21,9 @@ const MyQuests = () => {
 
   return (
     <>
-      <Title />
+      <Helmet>
+        <title>My Title</title>
+      </Helmet>
       <Path />
       <div className="wrapper">
         <header className="header">

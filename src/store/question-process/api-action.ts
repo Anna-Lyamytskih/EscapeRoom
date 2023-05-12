@@ -5,7 +5,7 @@ import { createApi } from '@reduxjs/toolkit/dist/query/react';
 
 export const questApi = createApi({
   reducerPath: 'questApi',
-  baseQuery,
+  baseQuery: baseQuery(),
   tagTypes: ['Quests'],
   endpoints: (builder) => ({
     getList: builder.query<Quests, void>({

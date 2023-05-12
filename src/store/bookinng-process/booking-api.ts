@@ -44,7 +44,7 @@ export type BookingitemList = BookingItem[]
 
 export const bookingApi = createApi({
   reducerPath: 'bookingApi',
-  baseQuery,
+  baseQuery: baseQuery(),
   tagTypes: ['BookingItem'],
   endpoints: (builder) => ({
     getById: builder.query<BookingitemList, string | undefined>({
@@ -59,7 +59,7 @@ export const bookingApi = createApi({
       }),
       invalidatesTags: ['BookingItem'],
       onCacheEntryAdded: (args, { dispatch }) => {
-        dispatch(reservationApi.util.invalidateTags(['ReservationList']))
+        dispatch(reservationApi.util.invalidateTags(['ReservationList']));
       }
     }),
   }),

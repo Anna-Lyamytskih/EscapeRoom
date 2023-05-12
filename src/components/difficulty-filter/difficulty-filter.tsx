@@ -22,7 +22,7 @@ const FilterItem = ({ id, value }: FilterItemProps) => {
         name="level"
         id={`${id}-level`}
         checked={filter.level === id}
-        onClick={() => { handleSortClick(id); }}
+        onChange={() => { handleSortClick(id); }}
       />
       <label className="filter__label" htmlFor={`${id}-level`}><span className="filter__label-text">{value}</span>
       </label>

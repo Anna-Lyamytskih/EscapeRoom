@@ -21,7 +21,7 @@ export type ReservationList = ReservationItem[];
 
 export const reservationApi = createApi({
   reducerPath: 'reservationApi',
-  baseQuery,
+  baseQuery: baseQuery(),
   tagTypes: ['ReservationList', 'ReservationItem'],
   endpoints: (builder) => ({
     getList: builder.query<ReservationList, void>({

@@ -9,10 +9,9 @@ export type BookingFormDateProps = {
   control: Control<BookingFormType, unknown>;
 };
 
-const BookingFormDate = ({ register, item, slotItem, setValue, control }: BookingFormDateProps): JSX.Element => {
+const BookingFormDate = ({ register, item, slotItem, setValue }: BookingFormDateProps): JSX.Element => {
   const slots = item?.slots[slotItem];
-  // const watchTime = useWatch({control, name: 'time'});
-console.log(slots)
+
   return (
     <>
       {slots.map(
@@ -37,24 +36,5 @@ console.log(slots)
     </>
   );
 };
-// <div className="booking-form__date-inner-wrapper">
-//   <label className="custom-radio booking-form__date">
-//     {placeTime?.map(
-//       (time) => (
-//         <label className="custom-radio booking-form__date">
-//           <input
-//             type="radio"
-//             // id="today9h45m"
-//             name="date"
-//             required
-//             // value="today9h45m"
-//             disabled
-//           />
-//           <span className="custom-radio__label">{time.time}</span>
-//         </label>
-//       )
-//     )}
-//   </label>
-// </div>
 
 export default BookingFormDate;

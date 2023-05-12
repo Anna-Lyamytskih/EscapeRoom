@@ -20,7 +20,7 @@ const BookingForm = ({
   const { saveUrl, restoreUrl } = useHistoryRedirect();
 
   const {
-    register, handleSubmit, reset,
+    register, handleSubmit,
     formState: { errors, isValid },
     setValue, control
   } = useForm<BookingFormType>({
@@ -52,10 +52,6 @@ const BookingForm = ({
       placeId: selectedItem.id,
       questId: id,
     };
-    //   addPost({ id: 1, name: 'Example' })
-    // .unwrap()
-    // .then((payload) => console.log('fulfilled', payload))
-    // .catch((error) => console.error('rejected', error))
 
     addBooking(bookingInformation)
       .unwrap()
@@ -65,7 +61,6 @@ const BookingForm = ({
         restoreUrl();
       })
       .catch((error) => console.error('rejected', error));
-    // reset();
   });
 
   return (

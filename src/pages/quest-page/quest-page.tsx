@@ -39,7 +39,7 @@ const QuestPage = () => {
   const genreOption = listGenre.find((item) => item.value === quest?.type);
 
   if (isLoading) {
-    return <LoadingScreen />
+    return <LoadingScreen />;
   }
 
   if (isError) {

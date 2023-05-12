@@ -13,26 +13,24 @@ import RequireAuth from './require-auth/require-auth';
 
 const browserHistory = createBrowserHistory();
 
-const Router = () => {
-  return (
-    <HistoryRouter history={browserHistory}>
-      <Routes>
-        <Route path='/'>
-          <Route path={AppRoute.Root} element={<Main />} />
-          <Route path={AppRoute.Quest} element={<QuestPage />} />
-          <Route path={AppRoute.Contacts} element={<Contacts />} />
-          <Route element={<RequireAuth />}>
-            <Route path={AppRoute.MyQuests} element={<MyQuests />} />
-            <Route path={AppRoute.Booking} element={<Booking />} />
-          </Route>
-          <Route path="/not-found" element={<NotFound />} />
-          <Route path="*" element={<NotFound />} />
+const Router = () => (
+  <HistoryRouter history={browserHistory}>
+    <Routes>
+      <Route path='/'>
+        <Route path={AppRoute.Root} element={<Main />} />
+        <Route path={AppRoute.Quest} element={<QuestPage />} />
+        <Route path={AppRoute.Contacts} element={<Contacts />} />
+        <Route element={<RequireAuth />}>
+          <Route path={AppRoute.MyQuests} element={<MyQuests />} />
+          <Route path={AppRoute.Booking} element={<Booking />} />
         </Route>
-        <Route path={AppRoute.Login} element={<Login />} />
-      </Routes>
-    </HistoryRouter>
-  );
-};
+        <Route path="/not-found" element={<NotFound />} />
+        <Route path="*" element={<NotFound />} />
+      </Route>
+      <Route path={AppRoute.Login} element={<Login />} />
+    </Routes>
+  </HistoryRouter>
+);
 
 export default Router;
 

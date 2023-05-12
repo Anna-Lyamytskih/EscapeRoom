@@ -22,8 +22,8 @@ const GenreFilter = ({ id, value }: GenreFilterProps) => {
         type="radio"
         name="type"
         id={`${id}-genre`}
-        onClick={() => { handleSortClick(id); }}
         checked={filter.genre === id}
+        onChange={() => handleSortClick(id)}
       />
       <label className="filter__label" htmlFor={`${id}-genre`}>
         <svg className="filter__icon" width="36" height="30" aria-hidden="true">
